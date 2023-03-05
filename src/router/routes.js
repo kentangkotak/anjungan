@@ -19,7 +19,10 @@ const routes = [
     children: [
       // { path: '', component: () => import('pages/direktur/IndexPage.vue') },
       { path: '', redirect: '/anjungan' },
-      { path: '/anjungan', name: 'anjungan', component: () => import('pages/anjungan/IndexPage.vue') }
+      { path: '/anjungan', name: 'anjungan', component: () => import('pages/anjungan/IndexPage.vue') },
+      { path: '/sistem-bayar', name: 'sistem.bayar', component: () => import('pages/anjungan/PilihSistemBayar.vue') },
+      { path: '/pasien-umum', name: 'pasien.umum', component: () => import('pages/anjungan/PageUmum.vue') },
+      { path: '/pasien-bpjs', name: 'pasien.bpjs', component: () => import('pages/anjungan/PageBpjs.vue') }
     ]
   },
 
