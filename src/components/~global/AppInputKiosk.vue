@@ -111,6 +111,7 @@ function handleClick (val) {
     popup.value = false
     // inp.value.blur()
     // keyb.value.hide()
+    emits('keyClicked', val)
   } else {
     emits('keyClicked', caps.value ? val.toUpperCase() : val.toLowerCase())
   }

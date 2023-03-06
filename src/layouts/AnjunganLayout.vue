@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lff" class="bg-primary">
+  <q-layout view="lHh Lpr lff">
 
     <q-page-container  class="bg-primary">
       <router-view v-slot="{ Component }">
@@ -16,6 +16,7 @@
 </script>
 
 <style lang="scss">
+
 .fade-enter, .fade-leave-to {
   opacity:0;
   transform: translateY(5em);

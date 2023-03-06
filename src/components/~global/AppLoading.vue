@@ -18,16 +18,10 @@
     </div>
 </template>
 <script setup>
-// import { computed } from 'vue'
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 
 import fileLink from 'src/assets/lottie/123652-financial.json'
-
-// const nFile = computed(() => {
-//   return new URL(fileLink, import.meta.url).href
-// })
-
 </script>
 <style lang="scss" scoped>
 .bg-loading {
