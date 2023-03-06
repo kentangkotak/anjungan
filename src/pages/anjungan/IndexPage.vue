@@ -1,6 +1,6 @@
 <template>
   <q-page class="fullscreen">
-    <div :class="`bg_${classes}`">
+    <div :class="`bg_${store.classes}`">
       <div class="absolute-top awan">
         <Vue3Lottie
             ref="anim"
@@ -33,7 +33,8 @@
 
         </div>
 
-        <q-tab-panels v-model="panel"
+        <q-tab-panels
+          v-model="store.classes"
           animated
           class="transparent"
           transition-next="slide-up"
@@ -41,16 +42,20 @@
           :transition-duration="500"
           style="height: 100%; z-index: 1000;"
           >
-            <q-tab-panel name="awal">
+            <q-tab-panel :name="0">
               <div class="_txt column flex-center items-center full-height">
                 <div class="text-h3 text-weight-bold text-primary">ANJUNGAN MANDIRI</div>
                 <div class="text-h4 text-weight-normal text-primary">UOBK RSUD MOHAMAD SALEH</div>
                 <div class="q-mt-lg">
-                  <q-btn rounded size="xl" color="primary" @click="changeClasses()">Mulai</q-btn>
+                  <q-btn
+                    icon="send"
+                    color="primary" size="lg" padding="md" label="Mulai"
+                    @click="store.changeClasses()"
+                    />
                 </div>
               </div>
             </q-tab-panel>
-            <q-tab-panel name="pilih-sistem-bayar">
+            <q-tab-panel :name="1">
               <div class="_txt column flex-center items-center full-height">
                 <div class="flex justify-center items-center">
                   <div style="width:250px" class="q-ma-md">
@@ -84,34 +89,20 @@
         </q-tab-panels>
 
       </div>
-
-      <!-- <div class="_rsud">
-        <q-btn>lk</q-btn>
-      </div> -->
-
     </div>
-    <!-- <div class="column flex-center items-center full-height text-white">
-      <div class="q-mb-lg">AWAL</div>
-      <q-btn class="bg-secondary" to="/sistem-bayar">Mulai</q-btn>
-    </div> -->
   </q-page>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useAnjunganStore } from 'src/stores/anjungan/index'
 import { useRouter } from 'vue-router'
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 import fileLink from 'src/assets/lottie/102873-clouds-loop.json'
 
-const router = useRouter()
-const classes = ref(0)
-const panel = ref('awal')
+const store = useAnjunganStore()
 
-function changeClasses () {
-  classes.value === 0 ? classes.value = 1 : classes.value = 1
-  panel.value = 'pilih-sistem-bayar'
-}
+const router = useRouter()
 
 function goTo (val) {
   router.push(val)
