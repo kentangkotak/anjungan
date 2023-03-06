@@ -17,13 +17,13 @@
             </div>
           </div>
           <div class="col-7">
-            <div class="q-pt-lg">
+            <div class="q-pt-lg q-mt-lg">
               <div class="text-h3 text-weight-bold">Pasien BPJS</div>
-              <q-separator class="q-my-lg"></q-separator>
+              <q-separator class="q-my-lg q-mr-lg"></q-separator>
               <div class="info text-body1">
                 Silahkan Anda cari no.rujukan Anda pada kolom Pencarian di bawah berikut :
               </div>
-              <div class="q-my-lg q-mr-lg">
+              <div class="q-my-lg q-mr-lg q-pt-lg">
                 <app-input-kiosk
                   ref="kiosk"
                   v-model="search"
