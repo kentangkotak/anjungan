@@ -15,7 +15,7 @@ const routes = [
   // },
   {
     path: '/',
-    component: () => import('layouts/'),
+    component: () => import('layouts/AnjunganLayout.vue'),
     children: [
       // { path: '', component: () => import('pages/direktur/IndexPage.vue') },
       { path: '', redirect: '/anjungan' },
@@ -27,11 +27,11 @@ const routes = [
   },
   {
     path: '/display_antrian',
-    component: () => import('layouts/AnjunganLayout.vue'),
+    component: () => import('layouts/DisplayLayout.vue'),
     children: [
       // { path: '', component: () => import('pages/direktur/IndexPage.vue') },
       { path: '', redirect: '/display' },
-      { path: '/display', name: 'display', component: () => import('pages/anjungan/IndexPage.vue') }
+      { path: '/display', name: 'display', component: () => import('pages/display/IndexPage.vue') }
     ]
   },
 
