@@ -15,7 +15,7 @@ const routes = [
   // },
   {
     path: '/',
-    component: () => import('layouts/AnjunganLayout.vue'),
+    component: () => import('layouts/'),
     children: [
       // { path: '', component: () => import('pages/direktur/IndexPage.vue') },
       { path: '', redirect: '/anjungan' },
@@ -23,6 +23,15 @@ const routes = [
       { path: '/sistem-bayar', name: 'sistem.bayar', component: () => import('pages/anjungan/PilihSistemBayar.vue') },
       { path: '/pasien-umum', name: 'pasien.umum', component: () => import('pages/anjungan/PageUmum.vue') },
       { path: '/pasien-bpjs', name: 'pasien.bpjs', component: () => import('pages/anjungan/PageBpjs.vue') }
+    ]
+  },
+  {
+    path: '/display_antrian',
+    component: () => import('layouts/AnjunganLayout.vue'),
+    children: [
+      // { path: '', component: () => import('pages/direktur/IndexPage.vue') },
+      { path: '', redirect: '/display' },
+      { path: '/display', name: 'display', component: () => import('pages/anjungan/IndexPage.vue') }
     ]
   },
 
