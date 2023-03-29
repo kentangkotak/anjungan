@@ -10,7 +10,9 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@quasar/cli": "^2.0.0",
     "@quasar/extras": "^1.0.0",
+    "@quasar/quasar-ui-qmediaplayer": "^2.0.0-beta.6",
     "axios": "^0.21.1",
     "echarts": "^5.4.1",
     "keyboardjs": "^2.7.0",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.0.0",
+    "@quasar/quasar-app-extension-qmediaplayer": "^2.0.0-beta.6",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.10.0",
     "eslint-config-standard": "^17.0.0",

@@ -14,7 +14,7 @@
               </q-avatar>
               <div class="q-ml-md text-white">
                 <div class="text-h5 text-weight-bold">UOBK RSUD  MOHAMAD SALEH</div>
-                <div class="text-h6">KOTA PROBOLINGGO</div>
+                <div class="text-h6" style="margin-top: -5px;">KOTA PROBOLINGGO</div>
               </div>
               </div>
             </div>
@@ -30,12 +30,15 @@
           <div class="col-4 bg-secondary">sfa</div>
           <div class="col-8 bg-grey">
             <div class="column full-height">
-              <div class="col tempat-video">
-                <div class="q-pa-xs">
-                  <q-video
-                    ratio="1.3"
-                    src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0"
-                  />
+              <div class="col tempat-video full-height">
+                <div class="q-pa-xs full-height">
+                  <div class="q-video full-height">
+                    <iframe
+                      src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0"
+                      frameborder="0"
+                      allowfullscreen
+                    />
+                  </div>
                 </div>
               </div>
               <div class="col-2 tempat-list-antrian bg-teal">Tempat List</div>
@@ -45,7 +48,9 @@
       </div>
       <!-- text berjalan -->
       <div class="col-auto">
-        berjalan
+        <div class="q-pa-md">
+          kgkk
+        </div>
       </div>
     </div>
 

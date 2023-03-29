@@ -29,12 +29,13 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
 
-      'axios', 'globalComponents'
+      'axios', 'globalComponents', 'plugins'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: [
       'app.scss'
+      // '~quasar-ui-qmediaplayer/src/QMediaPlayer.sass'
     ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
@@ -53,6 +54,12 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      // ini baru
+      // transpile: true,
+      // transpileDependencies: [
+      //   /quasar-ui-qmediaplayer[\\/]src/
+      // ],
+      // ====================================
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16'
