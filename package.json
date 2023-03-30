@@ -13,6 +13,7 @@
     "@quasar/cli": "^2.0.0",
     "@quasar/extras": "^1.0.0",
     "@quasar/quasar-ui-qmediaplayer": "^2.0.0-beta.6",
+    "artplayer": "^4.6.2",
     "axios": "^0.21.1",
     "echarts": "^5.4.1",
     "keyboardjs": "^2.7.0",
