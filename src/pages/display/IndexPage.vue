@@ -47,20 +47,21 @@
             <div class="column full-height">
               <div class="col tempat-video full-height">
                 <div class="q-pa-xs full-height">
-                  <div class="q-video full-height">
+                  <!-- <div class="q-video full-height">
                     <iframe
                       src="https://www.youtube.com/embed/k3_tw44QsZQ?rel=0"
                       frameborder="0"
                       allowfullscreen
                       autoplay
                     />
+                  </div> -->
+                  <div class="full-height">
+                    <video controls autoplay muted style="width:100%;">
+                      <source src="~assets/video/video.webm" />
+                      Your Browser does not support mp4 videos, change browser!
+                    </video>
                   </div>
                 </div>
-                <!-- <q-video
-                  src="https://www.youtube.com/embed/WBhdr1FOw04?rel=0"
-                  class="full-height"
-                />
-                </div> -->
               </div>
               <div class="col-3 tempat-list-antrian bg-teal">Tempat List</div>
             </div>
