@@ -56,10 +56,32 @@
                     />
                   </div> -->
                   <div class="full-height">
-                    <video controls autoplay muted style="width:100%;">
+                    <!-- <video controls autoplay muted style="width:100%;">
                       <source src="~assets/video/video.webm" />
                       Your Browser does not support mp4 videos, change browser!
-                    </video>
+                    </video> -->
+                    <video-player
+                        class="video-player vjs-big-play-centered"
+                        src="https://github.surmon.me/videojs-player"
+                        poster="https://vjs.zencdn.net/v/oceans.png"
+                        crossorigin="anonymous"
+                        playsinline
+                        controls
+                        :volume="0.6"
+                        :height="320"
+                        :playback-rates="[0.7, 1.0, 1.5, 2.0]"
+                        @mounted="handleMounted"
+                        @ready="handleEvent($event)"
+                        @play="handleEvent($event)"
+                        @pause="handleEvent($event)"
+                        @ended="handleEvent($event)"
+                        @loadeddata="handleEvent($event)"
+                        @waiting="handleEvent($event)"
+                        @playing="handleEvent($event)"
+                        @canplay="handleEvent($event)"
+                        @canplaythrough="handleEvent($event)"
+                        @timeupdate="handleEvent(player?.currentTime())"
+                      />
                   </div>
                 </div>
               </div>
@@ -80,6 +102,10 @@
 </template>
 
 <script setup>
+import { VideoPlayer } from '@videojs-player/vue'
+// import { VideoJsPlayer } from 'video.js'
+import 'video.js/dist/video-js.css'
+import { shallowRef } from 'vue'
 // import { useAnjunganStore } from 'src/stores/anjungan/index'
 import { useRouter } from 'vue-router'
 // import { Vue3Lottie } from 'vue3-lottie'
@@ -89,10 +115,23 @@ import { useRouter } from 'vue-router'
 // const store = useAnjunganStore()
 
 const router = useRouter()
+const player = shallowRef()
 console.log(router)
+
+const handleMounted = (payload) => {
+  player.value = payload.player
+  console.log('Basic player mounted', payload)
+}
+
+const handleEvent = (log) => {
+  console.log('Basic player event', log)
+}
 
 </script>
 
 <style lang="scss" scoped>
-
+.video-player {
+    background-color: $dark;
+    width: 100%;
+  }
 </style>
