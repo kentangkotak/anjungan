@@ -50,7 +50,9 @@
                     <app-video />
                 </div>
               </div>
-              <div class="col-3 tempat-list-antrian bg-teal">Tempat List</div>
+              <div class="col-3 tempat-list-antrian bg-teal">
+                tempat list
+              </div>
             </div>
           </div>
         </div>

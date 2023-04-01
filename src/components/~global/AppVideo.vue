@@ -1,9 +1,17 @@
 <template>
   <div class="player">
     <div class="player_sizer">
-      <video ref="refVideo" autoplay controls loop>
+      <!-- <iframe src="~assets/video/NE.mp4" type="video/mp4" allow="autoplay" id="video" style="display:none"></iframe> -->
+      <video id="vidEl" ref="refVideo"
+        :autoplay="autoplay"
+        :muted="muted"
+        @loadedmetadata="loadedMD($event)"
+        @loadstart="loadedStart($event)"
+        @ended="onEnded()"
+        >
         <source type="video/mp4" src="~assets/video/NE.mp4">
       </video>
+      <q-btn label="play" @click="played($event)"></q-btn>
     </div>
   </div>
 </template>
@@ -12,8 +20,25 @@
 import { ref, onMounted } from 'vue'
 
 const refVideo = ref()
+const autoplay = ref(false)
+const muted = ref(false)
+
+function played () {
+  refVideo.value.play()
+}
+function loadedStart (e) {
+  console.log('loaded', e)
+  played()
+}
+
+function onEnded () {
+  console.log('onEnded')
+}
+function loadedMD (ev) {
+  return ev
+}
 onMounted(() => {
-  console.log('video', refVideo.value)
+  //
 })
 </script>
 

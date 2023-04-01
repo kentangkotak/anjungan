@@ -10,15 +10,28 @@
 import { ref, onMounted, nextTick, reactive } from 'vue'
 import ArtPlayer from 'artplayer'
 
+// function getVideo () {
+//   // const file = props.url
+//   // if (file === null || file === 'undefined' || file === undefined || file === '') {
+//   //   return new URL('../../assets/lottie/123408-image-not-preview.json', import.meta.url).href
+//   // } else {
+//   //   return new URL('../../assets/lottie/' + file, import.meta.url).href
+//   // }
+//   // return new URL('../../assets/video/NE.mp4', import.meta.url).href
+//   return '../../assets/video/NE.mp4'
+// }
+
+import vidurl from '../../assets/video/NE.mp4'
+
 const player = ref()
 const options = reactive({
-  url: '~assets/video/NE.mp4',
+  url: vidurl,
   title: 'Your Name',
   poster: '',
   volume: 0.5,
   isLive: false,
   muted: false,
-  autoplay: false,
+  autoplay: true,
   pip: true,
   autoSize: true,
   autoMini: true,
