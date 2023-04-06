@@ -10,7 +10,7 @@
         @loadstart="loadedStart($event)"
         @ended="onEnded()"
         >
-        <source :src="getVideo()">
+        <source :type="getType()" :src="getVideo()">
       </video>
       <q-btn label="play" @click="played($event)"></q-btn>
     </div>
@@ -18,21 +18,43 @@
 </template>
 
 <script setup>
+import { pathImg } from 'src/boot/axios'
 import { ref, onMounted } from 'vue'
+
+const props = defineProps({
+  videos: {
+    type: Array,
+    default: () => []
+  }
+})
 
 const refVideo = ref()
 const autoplay = ref(false)
 const muted = ref(false)
 
-const videos = ref(['NE.mp4', 'video.webm'])
+// const videos = ref(['NE.mp4', 'video.webm'])
 const idx = ref(0)
 
 function getVideo () {
-  const file = videos.value[idx.value]
+  const file = props.videos[idx.value]
+  if (props.videos.length === 0) {
+    return new URL('../../assets/video/NE.mp4', import.meta.url).href
+  }
   if (file === null || file === 'undefined' || file === undefined || file === '') {
     return new URL('../../assets/video/NE.mp4', import.meta.url).href
   } else {
-    return new URL('../../assets/video/' + file, import.meta.url).href
+    return pathImg + file.url
+  }
+}
+function getType () {
+  const file = props.videos[idx.value]
+  if (props.videos.length === 0) {
+    return 'video/mp4'
+  }
+  if (file === null || file === 'undefined' || file === undefined || file === '') {
+    return 'video/mp4'
+  } else {
+    return file.type
   }
 }
 
@@ -46,7 +68,8 @@ function loadedStart (e) {
 
 function onEnded () {
   console.log('onEnded')
-  const vid = videos.value.length
+  // const vid = videos.value.length
+  const vid = props.videos.length
   if (idx.value === vid - 1) {
     idx.value = 0
   } else {
