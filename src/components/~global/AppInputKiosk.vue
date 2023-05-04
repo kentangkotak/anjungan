@@ -44,9 +44,9 @@
                     size="md"
                     no-caps
                     :class="`shadow-4 ${item==='Capslock'?'w-100':item==='Space'?'w-150':item==='Hapus'?'w-70':
-                    item==='Enter'?'w-70':'w-50'}`"
+                    item==='Cari'?'w-70':'w-50'}`"
                     >
-                    <div v-if="item==='Capslock'||item==='Space'|| item==='Hapus'||item==='Enter'">{{ item }}</div>
+                    <div v-if="item==='Capslock'||item==='Space'|| item==='Hapus'||item==='Cari'">{{ item }}</div>
                     <div v-else>
                       {{ caps?item.toUpperCase():item.toLowerCase() }}
                     </div>
@@ -85,7 +85,7 @@ const caps = ref(true)
 const keyboards = ref([
   'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
   'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-  'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Capslock', 'Space', 'Hapus', 'Enter'
+  'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Capslock', 'Space', 'Hapus', 'Cari'
 ])
 const keyboards2 = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
 
@@ -104,7 +104,7 @@ const emits = defineEmits(['keyClicked', 'emitValue', 'clearable'])
 function handleClick (val) {
   if (val === 'Capslock') {
     caps.value = !caps.value
-  } else if (val === 'Enter') {
+  } else if (val === 'Cari') {
     console.log(keyb.value)
     inp.value.focus(false)
     setTimeout(() => inp.value.blur(), 300)
