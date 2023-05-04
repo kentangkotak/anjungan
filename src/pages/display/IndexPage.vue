@@ -47,7 +47,7 @@
             <div class="column full-height">
               <div class="col tempat-video full-height">
                 <div class="full-height column items-center flex-center q-mx-auto full-width relative-position">
-                    <app-video />
+                    <app-video :videos="store.videos" />
                 </div>
               </div>
               <div class="col-3 tempat-list-antrian bg-teal">
@@ -69,7 +69,14 @@
 </template>
 
 <script setup>
+import { useVideoStore } from 'src/stores/video'
+import { onMounted } from 'vue'
 
+const store = useVideoStore()
+
+onMounted(() => {
+  store.getData()
+})
 </script>
 
 <style lang="scss" scoped>
