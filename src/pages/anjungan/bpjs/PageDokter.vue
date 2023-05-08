@@ -4,9 +4,9 @@
     <div class="q-pa-md q-my-lg">
       <div class="text-h3">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator>
+
       <div class="info text-body1" style="margin-top:150px;">
-        Silahkan Anda cari berdasarkan <b>No RUJUKAN </b> yang didapat dari FASKES Tingkat I / Rumah Sakit Lain ,
-        <span>Atau <b>SURAT KONTROL </b> Dari RSUD MOH SALEH dibawah Berikut: </span>
+        Silahkan Anda cari Dokter Terjadwal dibawah Berikut:
       </div>
       <div class="q-my-lg">
         <app-input-kiosk
@@ -21,7 +21,7 @@
       </div>
       <div class="absolute-bottom q-pa-md">
       <div class="row full-width">
-        <div class="col-grow bg-negative cursor-pointer" @click="goTo('/anjungan')">
+        <div class="col-grow bg-negative cursor-pointer" @click="store.setTab('awal')">
           <div class="q-pa-lg text-center text-white f-20">KEMBALI</div>
         </div>
         <div class="col-grow bg-dark cursor-pointer">
@@ -38,13 +38,11 @@
 import 'vue3-lottie/dist/style.css'
 import { ref } from 'vue'
 import { useBpjsStore } from 'src/stores/anjungan/bpjs'
-import { useRouter } from 'vue-router'
 
 const search = ref('')
 const kiosk = ref(null)
 const caps = ref(true)
 
-const router = useRouter()
 const store = useBpjsStore()
 
 function keyClicked (e) {
@@ -55,17 +53,13 @@ function keyClicked (e) {
   } else if (e.toLowerCase() === 'space') {
     search.value = search.value += ' '
   } else if (e.toLowerCase() === 'cari') {
-    store.setTab('loading')
+    store.tab = 'loading'
     setTimeout(() => {
-      store.setTab('dokter')
-    }, 1000)
+      store.tab = 'result'
+    }, 3000)
   } else {
     search.value += e
   }
 }
 
-function goTo (val) {
-  store.changeClasses()
-  router.push(val)
-}
 </script>

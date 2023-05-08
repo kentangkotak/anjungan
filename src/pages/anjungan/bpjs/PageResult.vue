@@ -1,18 +1,21 @@
 <template>
   <div class="q-pa-md full-height bg-white" style="border-radius: 5px;">
-    <q-card flat rounded bordered class="bg-grey-2">
+    <q-card flat rounded bordered class="bg-grey-2" style="margin-top:50px;">
       <q-card-section>
-        <div>Data Pasien</div>
-        <div class="row q-mt-lg">
-          <div>
+        <!-- <div>Data Pasien</div> -->
+        <div class="absolute-top column flex-center" style="margin-top:-50px;">
             <q-avatar
               size="100px"
             >
-              <img :src="`https://cdn.quasar.dev/img/avatar1.jpg`" style="border: 2px solid blue;">
+              <img :src="`https://cdn.quasar.dev/img/avatar1.jpg`" style="border: 4px solid grey;">
             </q-avatar>
           </div>
+        <div class="row q-mt-lg q-py-lg">
+
           <div class="q-ml-lg">
-            <div class="flex">
+            <q-separator class="q-my-sm"></q-separator>
+            <div class="q-pt-sm">
+              <div class="flex">
               <div class="w-t">Nama</div>
               <div class="text-weight-bold" >: Nama Pasien </div>
             </div>
@@ -24,8 +27,9 @@
               <div class="w-t">Alamat</div>
               <div class="text-weight-bold" >: Alamat Pasien Alamat Pasien</div>
             </div>
+            </div>
 
-            <q-separator class="q-my-lg"></q-separator>
+            <q-separator class="q-my-md"></q-separator>
             <div>
               Anda Akan ke poli GIGI
             </div>

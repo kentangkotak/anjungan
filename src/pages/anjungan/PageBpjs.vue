@@ -42,9 +42,12 @@
               <q-tab-panel name="awal">
                 <PageCari />
               </q-tab-panel>
+              <q-tab-panel name="dokter">
+                <PageDokter />
+              </q-tab-panel>
 
               <q-tab-panel name="loading">
-                <div class="column flex-center items-center full-height bg-white">
+                <div class="column flex-center items-center full-height light-dimmed">
                   <q-spinner-cube
                     color="info"
                     size="4em"
@@ -76,6 +79,7 @@ import { useBpjsStore } from 'src/stores/anjungan/bpjs'
 const store = useBpjsStore()
 
 import PageCari from './bpjs/PageCari.vue'
+import PageDokter from './bpjs/PageDokter.vue'
 import PageResult from './bpjs/PageResult.vue'
 </script>
 
