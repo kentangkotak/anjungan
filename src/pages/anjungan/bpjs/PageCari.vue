@@ -11,11 +11,11 @@
       <div class="q-my-lg">
         <app-input-kiosk
           ref="kiosk"
-          v-model="search"
+          v-model="store.search"
           icon="search"
           :capslock="caps"
-          @key-clicked="(val)=> keyClicked(val)"
-          @clearable="search=''"
+          @key-clicked="(val)=> store.kioskClicked(val)"
+          @clearable="store.search=''"
           label="Cari no Rujukan / Surat Kontrol"
         />
       </div>
@@ -39,30 +39,31 @@ import 'vue3-lottie/dist/style.css'
 import { ref } from 'vue'
 import { useBpjsStore } from 'src/stores/anjungan/bpjs'
 import { useRouter } from 'vue-router'
+// import { notifErrVue } from 'src/modules/utils.js'
 
-const search = ref('')
+// const search = ref('')
 const kiosk = ref(null)
 const caps = ref(true)
 
 const router = useRouter()
 const store = useBpjsStore()
 
-function keyClicked (e) {
-  if (typeof e === 'number') {
-    search.value += e
-  } else if (e.toLowerCase() === 'hapus') {
-    search.value = search.value.substring(0, search.value.length - 1)
-  } else if (e.toLowerCase() === 'space') {
-    search.value = search.value += ' '
-  } else if (e.toLowerCase() === 'cari') {
-    store.setTab('loading')
-    setTimeout(() => {
-      store.setTab('dokter')
-    }, 1000)
-  } else {
-    search.value += e
-  }
-}
+// function keyClicked (e) {
+//   if (typeof e === 'number') {
+//     search.value += e
+//   } else if (e.toLowerCase() === 'hapus') {
+//     search.value = search.value.substring(0, search.value.length - 1)
+//   } else if (e.toLowerCase() === 'space') {
+//     search.value = search.value += ' '
+//   } else if (e.toLowerCase() === 'cari') {
+//     if (search.value === '' || search.value === null) {
+//       return notifErrVue('Maaf Isikan Dahulu Pencariannya')
+//     }
+//     store.pencarianRujukan(search.value)
+//   } else {
+//     search.value += e
+//   }
+// }
 
 function goTo (val) {
   store.changeClasses()
