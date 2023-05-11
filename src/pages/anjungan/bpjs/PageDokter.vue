@@ -2,7 +2,7 @@
   <div class="q-pa-xs full-height bg-white" style="border-radius: 5px;">
     <!-- <q-card flat rounded bordered class="bg-grey-2"> -->
     <div class="q-pa-md q-my-lg">
-      <div class="text-h3">Pasien BPJS</div>
+      <div class="text-h5">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator>
 
       <div class="info text-body1" style="margin-top:150px;">

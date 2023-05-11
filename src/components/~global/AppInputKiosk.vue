@@ -107,7 +107,10 @@ function handleClick (val) {
   } else if (val === 'Cari') {
     console.log(keyb.value)
     inp.value.focus(false)
-    setTimeout(() => inp.value.blur(), 300)
+    // setTimeout(() => {
+    //   console.log('inp', inp.value)
+    //   inp.value.blur()
+    // }, 300)
     popup.value = false
     // inp.value.blur()
     // keyb.value.hide()

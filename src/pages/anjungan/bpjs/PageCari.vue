@@ -2,7 +2,7 @@
   <div class="q-pa-xs full-height bg-white" style="border-radius: 5px;">
     <!-- <q-card flat rounded bordered class="bg-grey-2"> -->
     <div class="q-pa-md q-my-lg">
-      <div class="text-h3">Pasien BPJS</div>
+      <div class="text-h4">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator>
       <div class="info text-body1" style="margin-top:150px;">
         Silahkan Anda cari berdasarkan <b>No RUJUKAN </b> yang didapat dari FASKES Tingkat I / Rumah Sakit Lain ,
@@ -14,7 +14,7 @@
           v-model="store.search"
           icon="search"
           :capslock="caps"
-          @key-clicked="(val)=> store.kioskClicked(val)"
+          @key-clicked="(val)=> keyClicked(val)"
           @clearable="store.search=''"
           label="Cari no Rujukan / Surat Kontrol"
         />
@@ -48,22 +48,9 @@ const caps = ref(true)
 const router = useRouter()
 const store = useBpjsStore()
 
-// function keyClicked (e) {
-//   if (typeof e === 'number') {
-//     search.value += e
-//   } else if (e.toLowerCase() === 'hapus') {
-//     search.value = search.value.substring(0, search.value.length - 1)
-//   } else if (e.toLowerCase() === 'space') {
-//     search.value = search.value += ' '
-//   } else if (e.toLowerCase() === 'cari') {
-//     if (search.value === '' || search.value === null) {
-//       return notifErrVue('Maaf Isikan Dahulu Pencariannya')
-//     }
-//     store.pencarianRujukan(search.value)
-//   } else {
-//     search.value += e
-//   }
-// }
+function keyClicked (e) {
+  store.kioskClicked(e)
+}
 
 function goTo (val) {
   store.changeClasses()

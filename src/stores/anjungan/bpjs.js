@@ -37,13 +37,13 @@ export const useBpjsStore = defineStore('bpjs', {
         if (this.search === '' || this.search === null) {
           return notifErrVue('Maaf Isikan Dahulu Pencariannya')
         }
-        this.pencarianRujukan(this.search)
+        this.pencarianRujukan()
       } else {
         this.search += e
       }
     },
 
-    async pencarianRujukan (val) {
+    async pencarianRujukan () {
       this.setTab('loading')
       // 132701010323P000001
       const params = {
@@ -57,11 +57,17 @@ export const useBpjsStore = defineStore('bpjs', {
         if (resp.data.metaData) {
           notifErrVue(resp.data.metaData.message)
         }
-        this.setTab('awal')
+        // this.setTab('awal')
+        // const noka =
+        this.cariPasien()
       } catch (error) {
         console.log(error)
         this.setTab('awal')
       }
+    },
+
+    async cariPasien () {
+
     }
   }
 })
