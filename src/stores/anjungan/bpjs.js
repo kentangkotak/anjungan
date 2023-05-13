@@ -54,20 +54,36 @@ export const useBpjsStore = defineStore('bpjs', {
       try {
         const resp = await api.get('/v1/anjungan/cari-rujukan', params)
         console.log('cari rujukan bpjs', resp)
-        if (resp.data.metaData) {
-          notifErrVue(resp.data.metaData.message)
+        if (resp.status === 200) {
+          const meta = resp.data.metadata ? resp.data.metadata : false
+          if (meta.code > 200) {
+            notifErrVue(resp.data.metadata.message)
+          }
+          const data = resp.data.result ? resp.data.result : false
+          const rujukan = data.rujukan ? data.rujukan : false
+          const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
+          this.cariPasien(noka)
         }
-        // this.setTab('awal')
-        // const noka =
-        this.cariPasien()
+        this.setTab('awal')
+      } catch (error) {
+        console.log(error)
+        this.setTab('awal')
+        notifErrVue('Ada Kesalahan')
+      }
+    },
+
+    async cariPasien (noka) {
+      this.setTab('loading')
+      const params = { params: { noka } }
+      try {
+        const resp = await api.get('/v1/anjungan/cari-noka', params)
+        console.log(resp)
+        // const res = resp.data.result
+        this.setTab('awal')
       } catch (error) {
         console.log(error)
         this.setTab('awal')
       }
-    },
-
-    async cariPasien () {
-
     }
   }
 })
