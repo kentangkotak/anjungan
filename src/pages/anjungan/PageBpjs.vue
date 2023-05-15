@@ -42,6 +42,9 @@
               <q-tab-panel name="awal">
                 <PageCari />
               </q-tab-panel>
+              <q-tab-panel name="rujukan not found">
+                <PageCariNotFound />
+              </q-tab-panel>
               <q-tab-panel name="dokter">
                 <PageDokter />
               </q-tab-panel>
@@ -81,6 +84,7 @@ const store = useBpjsStore()
 import PageCari from './bpjs/PageCari.vue'
 import PageDokter from './bpjs/PageDokter.vue'
 import PageResult from './bpjs/PageResult.vue'
+import PageCariNotFound from './bpjs/PageCariNotFound.vue'
 </script>
 
 <style lang="scss" scoped>

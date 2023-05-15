@@ -17,7 +17,7 @@ export const useBpjsStore = defineStore('bpjs', {
   },
   actions: {
     changeClasses () {
-      this.classes === 0 ? this.classes = 1 : this.classes = 1
+      this.classes === 0 ? this.classes = 1 : this.classes = 0
     },
     setTab (val) {
       this.tab = val
@@ -53,18 +53,42 @@ export const useBpjsStore = defineStore('bpjs', {
       }
       try {
         const resp = await api.get('/v1/anjungan/cari-rujukan', params)
-        console.log('cari rujukan bpjs', resp)
+        console.log('cari rujukan pCare', resp)
         if (resp.status === 200) {
           const meta = resp.data.metadata ? resp.data.metadata : false
-          if (meta.code > 200) {
-            notifErrVue(resp.data.metadata.message)
+          if (meta.code === 200 || meta.code === '200') {
+            const data = resp.data.result ? resp.data.result : false
+            const rujukan = data.rujukan ? data.rujukan : false
+            const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
+            this.cariPasien(noka)
+          } else {
+            this.pencarianRujukanRS()
           }
-          const data = resp.data.result ? resp.data.result : false
-          const rujukan = data.rujukan ? data.rujukan : false
-          const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
-          this.cariPasien(noka)
         }
+        // this.setTab('awal')
+      } catch (error) {
+        console.log(error)
         this.setTab('awal')
+        notifErrVue('Ada Kesalahan')
+      }
+    },
+    async pencarianRujukanRS () {
+      this.setTab('loading')
+      const params = { params: { search: this.search } }
+      try {
+        const resp = await api.get('/v1/anjungan/cari-rujukan-rs', params)
+        console.log('cari rujukan rs', resp)
+        if (resp.status === 200) {
+          const meta = resp.data.metadata ? resp.data.metadata : false
+          if (meta.code === 200 || meta.code === '200') {
+            const data = resp.data.result ? resp.data.result : false
+            const rujukan = data.rujukan ? data.rujukan : false
+            const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
+            this.cariPasien(noka)
+          } else {
+            this.setTab('rujukan not found')
+          }
+        }
       } catch (error) {
         console.log(error)
         this.setTab('awal')
@@ -77,7 +101,7 @@ export const useBpjsStore = defineStore('bpjs', {
       const params = { params: { noka } }
       try {
         const resp = await api.get('/v1/anjungan/cari-noka', params)
-        console.log(resp)
+        console.log('cari pasien rs', resp)
         // const res = resp.data.result
         this.setTab('awal')
       } catch (error) {

@@ -35,7 +35,6 @@
 </template>
 
 <script setup>
-import 'vue3-lottie/dist/style.css'
 import { ref } from 'vue'
 import { useBpjsStore } from 'src/stores/anjungan/bpjs'
 import { useRouter } from 'vue-router'
