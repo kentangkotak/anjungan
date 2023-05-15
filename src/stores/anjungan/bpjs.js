@@ -5,12 +5,18 @@ import { notifErrVue } from 'src/modules/utils'
 export const useBpjsStore = defineStore('bpjs', {
   state: () => ({
     classes: 0,
-    tab: 'awal',
+    tab: 'awal', // pasien-bpjs-baru | dokter | result | loading | awal | rujukan not found
 
     search: '132701010323P000001',
 
     dokters: [],
-    dokter: null
+    dokter: null,
+
+    rsud: {
+      nama: 'RSUD MOHAMAD SALEH',
+      kota: 'KOTA PROBOLINGGO',
+      alamat: 'Jl. Panjaitan no.65'
+    }
   }),
   getters: {
     // doubleCount: (state) => state.counter * 2
@@ -103,7 +109,15 @@ export const useBpjsStore = defineStore('bpjs', {
         const resp = await api.get('/v1/anjungan/cari-noka', params)
         console.log('cari pasien rs', resp)
         // const res = resp.data.result
-        this.setTab('awal')
+        if (resp.status === 200 || resp.status === '200') {
+          const res = resp.data.result ? resp.data.result : false
+          if (res === 'Tidak ditemukan') { // artinya pasien baru
+            // ke antrian pendaftaran
+            this.setTab('pasien-bpjs-baru')
+          } else {
+            this.setTab('dokter')
+          }
+        }
       } catch (error) {
         console.log(error)
         this.setTab('awal')

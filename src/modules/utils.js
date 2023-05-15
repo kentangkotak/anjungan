@@ -1,4 +1,4 @@
-import { Notify } from 'quasar'
+import { Notify, date } from 'quasar'
 
 const notifErrVue = (msg) => {
   Notify.create({
@@ -12,6 +12,10 @@ const notifErrVue = (msg) => {
   })
 }
 
+const dateHuman = (val) => {
+  return date.formatDate(val, 'DD MMM YYYY HH:mm:ss')
+}
+
 export {
-  notifErrVue
+  notifErrVue, dateHuman
 }
