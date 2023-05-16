@@ -1,16 +1,36 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { notifErrVue } from 'src/modules/utils'
+import { formatDateTimeDb } from 'src/utility/formatter'
 
 export const useBpjsStore = defineStore('bpjs', {
   state: () => ({
     classes: 0,
     tab: 'awal', // pasien-bpjs-baru | dokter | result | loading | awal | rujukan not found
 
-    search: '132701010323P000001',
+    // search: '0213B0050423P000192',
+    search: '132701020423Y000379',
+
+    pasien_bpjs: null,
+    pasien_rs: null,
 
     dokters: [],
     dokter: null,
+
+    form: {
+      nama: null,
+      jenispasien: 'JKN', // JKN / NON JKN
+      nomorkartu: null,
+      norm: null,
+      nik: null,
+      nohp: null,
+      pasienbaru: 1, // 1(Ya), 0(Tidak)
+      jeniskunjungan: 1, // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
+      dokter_id: null,
+      tanggalperiksa: null,
+      tgl_ambil: null,
+      nomorreferensi: null // norujukan/kontrol pasien JKN,diisi kosong jika NON JKN
+    },
 
     rsud: {
       nama: 'RSUD MOHAMAD SALEH',
@@ -52,11 +72,7 @@ export const useBpjsStore = defineStore('bpjs', {
     async pencarianRujukan () {
       this.setTab('loading')
       // 132701010323P000001
-      const params = {
-        params: {
-          search: this.search
-        }
-      }
+      const params = { params: { search: this.search } }
       try {
         const resp = await api.get('/v1/anjungan/cari-rujukan', params)
         console.log('cari rujukan pCare', resp)
@@ -66,6 +82,7 @@ export const useBpjsStore = defineStore('bpjs', {
             const data = resp.data.result ? resp.data.result : false
             const rujukan = data.rujukan ? data.rujukan : false
             const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
+            this.pasien_bpjs = data
             this.cariPasien(noka)
           } else {
             this.pencarianRujukanRS()
@@ -90,6 +107,7 @@ export const useBpjsStore = defineStore('bpjs', {
             const data = resp.data.result ? resp.data.result : false
             const rujukan = data.rujukan ? data.rujukan : false
             const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
+            this.pasien_bpjs = data
             this.cariPasien(noka)
           } else {
             this.setTab('rujukan not found')
@@ -113,8 +131,11 @@ export const useBpjsStore = defineStore('bpjs', {
           const res = resp.data.result ? resp.data.result : false
           if (res === 'Tidak ditemukan') { // artinya pasien baru
             // ke antrian pendaftaran
-            this.setTab('pasien-bpjs-baru')
+            // this.setTab('pasien-bpjs-baru')
+            this.form.pasienbaru = 1
+            this.setTab('result')
           } else {
+            this.pasien_rs = res
             this.setTab('dokter')
           }
         }
@@ -122,6 +143,49 @@ export const useBpjsStore = defineStore('bpjs', {
         console.log(error)
         this.setTab('awal')
       }
+    },
+
+    async saveBookingPasienBaru () {
+      if (this.pasien_bpjs !== null) {
+        this.form.nama = this.pasien_bpjs.rujukan.peserta.nama
+        this.form.jenispasien = 'JKN' // JKN / NON JKN
+        this.form.nomorkartu = this.pasien_bpjs.rujukan.peserta.noKartu
+        this.form.norm = null
+        this.form.nik = this.pasien_bpjs.rujukan.peserta.nik
+        this.form.nohp = this.pasien_bpjs.rujukan.peserta.mr.noTelepon
+        this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
+        this.form.dokter_id = null
+        this.form.tanggalperiksa = formatDateTimeDb(new Date())
+        this.form.tgl_ambil = formatDateTimeDb(new Date())
+        this.form.nomorreferensi = this.pasien_bpjs.rujukan.noKunjungan
+
+        try {
+          const resp = await api.post('v1/anjungan/booking', this.form)
+          if (resp.status === 201) {
+            this.setTab('pasien-bpjs-baru')
+          }
+        } catch (error) {
+          notifErrVue('Maaf, Ada Keslahan Harap Ulangi')
+        }
+      } else {
+        notifErrVue('Maaf, Ada Keslahan Harap Ulangi')
+        this.setTab('awal')
+        this.pasien_bpjs = null
+      }
     }
+  },
+  resetFormPasien () {
+    this.form.nama = null
+    this.form.jenispasien = 'JKN' // JKN / NON JKN
+    this.form.nomorkartu = null
+    this.form.norm = null
+    this.form.nik = null
+    this.form.nohp = null
+    this.form.pasienbaru = 1 // 1(Ya), 0(Tidak)
+    this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
+    this.form.dokter_id = null
+    this.form.tanggalperiksa = formatDateTimeDb(new Date())
+    this.form.tgl_ambil = formatDateTimeDb(new Date())
+    this.form.nomorreferensi = null
   }
 })

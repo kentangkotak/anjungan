@@ -53,7 +53,7 @@
               </q-tab-panel>
 
               <q-tab-panel name="loading">
-                <div class="column flex-center items-center full-height light-dimmed">
+                <div class="column flex-center items-center full-height">
                   <q-spinner-cube
                     color="info"
                     size="4em"

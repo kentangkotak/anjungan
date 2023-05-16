@@ -5,6 +5,7 @@
       <div class="text-h5">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator>
 
+      {{ store.pasien }}
       <div class="info text-body1" style="margin-top:150px;">
         Silahkan Anda cari Dokter Terjadwal dibawah Berikut:
       </div>

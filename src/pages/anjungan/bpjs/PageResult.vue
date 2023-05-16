@@ -1,48 +1,65 @@
 <template>
   <div class="q-pa-md full-height bg-white" style="border-radius: 5px;">
-    <q-card flat rounded bordered class="bg-grey-2" style="margin-top:50px;">
-      <q-card-section>
-        <!-- <div>Data Pasien</div> -->
-        <div class="absolute-top column flex-center" style="margin-top:-50px;">
-            <q-avatar
-              size="100px"
-            >
-              <img :src="`https://cdn.quasar.dev/img/avatar1.jpg`" style="border: 4px solid grey;">
-            </q-avatar>
-          </div>
-        <div class="row q-mt-lg q-py-lg">
-
-          <div class="q-ml-lg">
-            <q-separator class="q-my-sm"></q-separator>
-            <div class="q-pt-sm">
-              <div class="flex">
-              <div class="w-t">Nama</div>
-              <div class="text-weight-bold" >: Nama Pasien </div>
-            </div>
-            <div class="flex">
-              <div class="w-t">No. RM</div>
-              <div class="text-weight-bold" >: No RM Pasien </div>
-            </div>
-            <div class="flex">
-              <div class="w-t">Alamat</div>
-              <div class="text-weight-bold" >: Alamat Pasien Alamat Pasien</div>
-            </div>
-            </div>
-
-            <q-separator class="q-my-md"></q-separator>
-            <div>
-              Anda Akan ke poli GIGI
-            </div>
-          </div>
+    <div class="absolute-top text-center">
+      <div class="q-ma-md">
+        <div class="q-pa-md text-h5 text-weight-bold">
+          BIODATA PASIEN
         </div>
+        <q-separator />
+      </div>
+    </div>
+    <div class="q-pa-lg">
+      <q-card  bordered class="bg-blue text-white" style="margin-top:60px;">
+      <q-card-section horizontal>
+        <q-img
+          class="col-2"
+          :src="nouser"
+        />
+
+        <q-card-section>
+          <div class="q-ml-lg">
+            <div class="row">
+              <div class="q-mr-md">
+                <!-- tempat -->
+                <div>Nama</div>
+                <div>NIK</div>
+                <div>NOKA</div>
+                <div>USIA</div>
+              </div>
+              <div>
+                <!-- isi -->
+                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.nama: '-' }}</div>
+                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.nik: '-' }}</div>
+                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.noKartu: '-' }}</div>
+                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.umur.umurSekarang: '-' }}</div>
+              </div>
+            </div>
+
+            <!-- <q-separator class="q-my-md"></q-separator> -->
+
+          </div>
+        </q-card-section>
       </q-card-section>
 
+      <q-separator />
+
+      <q-card-actions>
+        <div class="row">
+          <div class="q-mr-md">
+            <div>Asal Dari Faskes Tingkat {{ store.pasien_bpjs? store.pasien_bpjs.asalFaskes: '-' }}  {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.provPerujuk.nama: '-' }}</div>
+          </div>
+
+        </div>
+      </q-card-actions>
     </q-card>
+    </div>
     <!-- <div class="q-mt-lg">Apakah Benar Informasi di atas?</div> -->
-    <div class="q-mt-lg">Apakah Informasi diatas sudah benar? <br />
-      Jika sudah benar ... tekan <span class="text-weight-bold"> SETUJU </span> untuk
-      <span class="text-weight-bold"> PRINT ANTREAN POLI </span> Anda <br/><br/>
-      Atau tekan <span class="text-weight-bold"> KEMBALI </span> Jika Anda ingin melakukan pencarian ulang Data Anda
+    <div class="text-center">
+      <div class="q-mt-lg">Apakah Informasi diatas sudah benar? <br />
+        Jika sudah benar ... tekan <span class="text-weight-bold"> SETUJU </span> untuk
+        <span class="text-weight-bold"> PRINT ANTREAN </span> Anda <br/><br/>
+        Atau tekan <span class="text-weight-bold"> KEMBALI </span> Jika Anda ingin melakukan pencarian ulang Data Anda
+      </div>
     </div>
 
     <div class="absolute-bottom q-pa-md">
@@ -51,7 +68,7 @@
           <div class="q-pa-lg text-center text-white f-20">KEMBALI</div>
         </div>
         <div class="col-grow bg-dark cursor-pointer">
-          <div class="q-pa-lg text-center text-white f-20">SETUJU</div>
+          <div class="q-pa-lg text-center text-white f-20" @click="toPrint()">SETUJU</div>
         </div>
       </div>
     </div>
@@ -60,6 +77,14 @@
 
 <script setup>
 import { useBpjsStore } from 'src/stores/anjungan/bpjs'
+import { computed } from 'vue'
+
+import user from 'src/assets/images/nouser.png'
 
 const store = useBpjsStore()
+const nouser = computed(() => new URL(user, import.meta.url).href)
+
+function toPrint () {
+  store.saveBookingPasienBaru()
+}
 </script>

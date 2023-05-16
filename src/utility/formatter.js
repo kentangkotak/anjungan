@@ -1,3 +1,4 @@
+import { date } from 'quasar'
 
 const formatRupiah = (number) => {
   return new Intl.NumberFormat('id-ID', {
@@ -22,4 +23,8 @@ const formatMoney = (bilangan) => {
   return rupiah
 }
 
-export { formatRupiah, formatMoney }
+const formatDateTimeDb = (val) => {
+  return date.formatDate(val, 'DD MMM YYYY HH:mm:ss')
+}
+
+export { formatRupiah, formatMoney, formatDateTimeDb }

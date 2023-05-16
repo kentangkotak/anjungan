@@ -6,7 +6,7 @@
         Maaf
       </div>
       <div class="text-h5">Pencarian dengan No Rujukan / No Surat Kontrol dengan Nomor</div>
-      <div class="text-h4 text-weight-bold">{{ store.search }}</div>
+      <div class="text-h4 text-weight-bold bord q-my-md">{{ store.search }}</div>
       <div  class="text-h5 text-negative">Tidak ditemukan</div>
       </div>
       <div class="absolute-bottom q-pa-md">
@@ -42,3 +42,9 @@ function goTo (val) {
   router.push(val)
 }
 </script>
+
+<style lang="scss" scoped>
+.bord{
+  border: 2px solid black;
+}
+</style>
