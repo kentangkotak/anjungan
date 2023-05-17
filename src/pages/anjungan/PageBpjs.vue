@@ -53,13 +53,7 @@
               </q-tab-panel>
 
               <q-tab-panel name="loading">
-                <div class="column flex-center items-center full-height">
-                  <q-spinner-cube
-                    color="info"
-                    size="4em"
-                  />
-                  Harap Tunggu
-                </div>
+                <PageLoading />
               </q-tab-panel>
 
               <q-tab-panel name="result">
@@ -89,6 +83,7 @@ import PageDokter from './bpjs/PageDokter.vue'
 import PageResult from './bpjs/PageResult.vue'
 import PageCariNotFound from './bpjs/PageCariNotFound.vue'
 import PasienBaru from './bpjs/PasienBaru.vue'
+import PageLoading from './bpjs/PageLoading.vue'
 </script>
 
 <style lang="scss" scoped>

@@ -31,7 +31,7 @@
                 <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.nama: '-' }}</div>
                 <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.nik: '-' }}</div>
                 <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.noKartu: '-' }}</div>
-                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.umur.umurSekarang: '-' }}</div>
+                <div> : {{ usia }}</div>
               </div>
             </div>
 
@@ -83,6 +83,14 @@ import user from 'src/assets/images/nouser.png'
 
 const store = useBpjsStore()
 const nouser = computed(() => new URL(user, import.meta.url).href)
+
+const usia = computed(() => {
+  const x = store.pasien_bpjs ? store.pasien_bpjs.rujukan.peserta.umur.umurSekarang : false
+  if (!x) {
+    return '-'
+  }
+  return x.split(',')[0]
+})
 
 function toPrint () {
   store.saveBookingPasienBaru()

@@ -26,5 +26,8 @@ const formatMoney = (bilangan) => {
 const formatDateTimeDb = (val) => {
   return date.formatDate(val, 'DD MMM YYYY HH:mm:ss')
 }
+const formatDateDb = (val) => {
+  return date.formatDate(val, 'YYYY-MM-DD')
+}
 
-export { formatRupiah, formatMoney, formatDateTimeDb }
+export { formatRupiah, formatMoney, formatDateTimeDb, formatDateDb }

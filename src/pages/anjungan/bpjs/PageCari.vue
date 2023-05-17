@@ -5,8 +5,7 @@
       <div class="text-h4">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator>
       <div class="info text-body1" style="margin-top:150px;">
-        Silahkan Anda cari berdasarkan <b>No RUJUKAN </b> yang didapat dari FASKES Tingkat I / Rumah Sakit Lain ,
-        <span>Atau <b>SURAT KONTROL </b> Dari RSUD MOH SALEH dibawah Berikut: </span>
+        Silahkan Anda cari berdasarkan <b>No RUJUKAN </b> yang didapat dari FASKES Tingkat I / Rumah Sakit Lain
       </div>
       <div class="q-my-lg">
         <app-input-kiosk
@@ -16,7 +15,7 @@
           :capslock="caps"
           @key-clicked="(val)=> keyClicked(val)"
           @clearable="store.search=''"
-          label="Cari no Rujukan / Surat Kontrol"
+          label="Cari Berdasarkan No. Rujukan"
         />
       </div>
       <div class="absolute-bottom q-pa-md">

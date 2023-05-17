@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { notifErrVue } from 'src/modules/utils'
-import { formatDateTimeDb } from 'src/utility/formatter'
+import { formatDateDb, formatDateTimeDb } from 'src/utility/formatter'
 
 export const useBpjsStore = defineStore('bpjs', {
   state: () => ({
@@ -9,7 +9,8 @@ export const useBpjsStore = defineStore('bpjs', {
     tab: 'awal', // pasien-bpjs-baru | dokter | result | loading | awal | rujukan not found
 
     // search: '0213B0050423P000192',
-    search: '132701020423Y000379',
+    // search: '132701020423Y000379', // ini pasien baru
+    search: '0193R0060423B000024',
 
     pasien_bpjs: null,
     pasien_rs: null,
@@ -26,7 +27,7 @@ export const useBpjsStore = defineStore('bpjs', {
       nohp: null,
       pasienbaru: 1, // 1(Ya), 0(Tidak)
       jeniskunjungan: 1, // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
-      dokter_id: null,
+      kodedokter: null,
       tanggalperiksa: null,
       tgl_ambil: null,
       nomorreferensi: null // norujukan/kontrol pasien JKN,diisi kosong jika NON JKN
@@ -142,33 +143,68 @@ export const useBpjsStore = defineStore('bpjs', {
       } catch (error) {
         console.log(error)
         this.setTab('awal')
+        notifErrVue('Ada Kesalahan')
       }
     },
 
-    async saveBookingPasienBaru () {
+    async cariDokter () {
+      if (this.pasien_bpjs !== null) {
+        const kodepoli = this.pasien_bpjs.rujukan.poliRujukan.kode
+        const tanggal = formatDateDb(new Date())
+        const params = { params: { kodepoli, tanggal } }
+        try {
+          const resp = await api.get('/v1/anjungan/cari-dokter', params)
+          console.log('dokter', resp)
+          if (resp.status === 200 || resp.status === '200') {
+            const res = resp.data.result ? resp.data.result : false
+            if (!res) {
+              this.setTab('awal')
+              notifErrVue('Maaf Ada Kesalahan, Harap Ulangi')
+            } else {
+              this.dokters = res
+            }
+          }
+        } catch (error) {
+          notifErrVue('Maaf, Ada Kesalahan Harap Ulangi')
+          this.setTab('awal')
+        }
+      } else {
+        notifErrVue('Maaf, Ada Keslahan Harap Ulangi')
+        this.setTab('awal')
+        this.pasien_bpjs = null
+      }
+    },
+
+    async saveBookingPasienBpjs (barulama) {
       if (this.pasien_bpjs !== null) {
         this.form.nama = this.pasien_bpjs.rujukan.peserta.nama
         this.form.jenispasien = 'JKN' // JKN / NON JKN
         this.form.nomorkartu = this.pasien_bpjs.rujukan.peserta.noKartu
-        this.form.norm = null
+        this.form.norm = this.pasien_rs.rs1 ? this.pasien_rs.rs1 : null
         this.form.nik = this.pasien_bpjs.rujukan.peserta.nik
         this.form.nohp = this.pasien_bpjs.rujukan.peserta.mr.noTelepon
         this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
-        this.form.dokter_id = null
+        this.form.kodedokter = this.dokter.kodedokter ? this.dokter.kodedokter : null
         this.form.tanggalperiksa = formatDateTimeDb(new Date())
         this.form.tgl_ambil = formatDateTimeDb(new Date())
         this.form.nomorreferensi = this.pasien_bpjs.rujukan.noKunjungan
 
         try {
           const resp = await api.post('v1/anjungan/booking', this.form)
+          console.log('post bookings', resp)
           if (resp.status === 201) {
-            this.setTab('pasien-bpjs-baru')
+            if (barulama === 'baru') {
+              this.setTab('pasien-bpjs-baru')
+            } else {
+              console.log('pasien-lama')
+              // this.setTab('pasien-bpjs-lama')
+            }
           }
         } catch (error) {
-          notifErrVue('Maaf, Ada Keslahan Harap Ulangi')
+          notifErrVue('Maaf, Ada Kesalahan Harap Ulangi')
         }
       } else {
-        notifErrVue('Maaf, Ada Keslahan Harap Ulangi')
+        notifErrVue('Maaf, Ada Kesalahan Harap Ulangi')
         this.setTab('awal')
         this.pasien_bpjs = null
       }
@@ -183,7 +219,7 @@ export const useBpjsStore = defineStore('bpjs', {
     this.form.nohp = null
     this.form.pasienbaru = 1 // 1(Ya), 0(Tidak)
     this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
-    this.form.dokter_id = null
+    this.form.kodedokter = null
     this.form.tanggalperiksa = formatDateTimeDb(new Date())
     this.form.tgl_ambil = formatDateTimeDb(new Date())
     this.form.nomorreferensi = null
