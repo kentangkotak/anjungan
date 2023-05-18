@@ -24,7 +24,7 @@ const formatMoney = (bilangan) => {
 }
 
 const formatDateTimeDb = (val) => {
-  return date.formatDate(val, 'DD MMM YYYY HH:mm:ss')
+  return date.formatDate(val, 'YYYY-MM-DD HH:mm:ss')
 }
 const formatDateDb = (val) => {
   return date.formatDate(val, 'YYYY-MM-DD')

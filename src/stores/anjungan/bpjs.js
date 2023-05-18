@@ -7,10 +7,11 @@ export const useBpjsStore = defineStore('bpjs', {
   state: () => ({
     classes: 0,
     tab: 'awal', // pasien-bpjs-baru | dokter | result | loading | awal | rujukan not found
+    load: 'Cecking Data',
 
     // search: '0213B0050423P000192',
-    // search: '132701020423Y000379', // ini pasien baru
-    search: '0193R0060423B000024',
+    search: '132701020423Y000379', // ini pasien baru
+    // search: '0193R0060423B000024',
 
     pasien_bpjs: null,
     pasien_rs: null,
@@ -19,7 +20,7 @@ export const useBpjsStore = defineStore('bpjs', {
     dokter: null,
 
     form: {
-      nama: null,
+      namapasien: null,
       jenispasien: 'JKN', // JKN / NON JKN
       nomorkartu: null,
       norm: null,
@@ -30,7 +31,10 @@ export const useBpjsStore = defineStore('bpjs', {
       kodedokter: null,
       tanggalperiksa: null,
       tgl_ambil: null,
-      nomorreferensi: null // norujukan/kontrol pasien JKN,diisi kosong jika NON JKN
+      nomorreferensi: null, // norujukan/kontrol pasien JKN,diisi kosong jika NON JKN
+      kodepoli: null,
+      namapoli: null,
+      dokter: null
     },
 
     rsud: {
@@ -47,6 +51,10 @@ export const useBpjsStore = defineStore('bpjs', {
       this.classes === 0 ? this.classes = 1 : this.classes = 0
     },
     setTab (val) {
+      if (val === 'awal') {
+        this.resetFormPasien()
+        this.load = 'Cecking Data'
+      }
       this.tab = val
     },
     setSearch (val) {
@@ -75,6 +83,7 @@ export const useBpjsStore = defineStore('bpjs', {
       // 132701010323P000001
       const params = { params: { search: this.search } }
       try {
+        this.load = 'Cari Rujukan'
         const resp = await api.get('/v1/anjungan/cari-rujukan', params)
         console.log('cari rujukan pCare', resp)
         if (resp.status === 200) {
@@ -83,9 +92,11 @@ export const useBpjsStore = defineStore('bpjs', {
             const data = resp.data.result ? resp.data.result : false
             const rujukan = data.rujukan ? data.rujukan : false
             const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
+            this.form.jeniskunjungan = 1
             this.pasien_bpjs = data
             this.cariPasien(noka)
           } else {
+            this.pasien_bpjs = null
             this.pencarianRujukanRS()
           }
         }
@@ -108,9 +119,12 @@ export const useBpjsStore = defineStore('bpjs', {
             const data = resp.data.result ? resp.data.result : false
             const rujukan = data.rujukan ? data.rujukan : false
             const noka = rujukan.peserta ? rujukan.peserta.noKartu : false
+
+            this.form.jeniskunjungan = 4
             this.pasien_bpjs = data
             this.cariPasien(noka)
           } else {
+            this.pasien_bpjs = null
             this.setTab('rujukan not found')
           }
         }
@@ -125,6 +139,7 @@ export const useBpjsStore = defineStore('bpjs', {
       this.setTab('loading')
       const params = { params: { noka } }
       try {
+        this.load = 'Cari Pasien'
         const resp = await api.get('/v1/anjungan/cari-noka', params)
         console.log('cari pasien rs', resp)
         // const res = resp.data.result
@@ -133,6 +148,7 @@ export const useBpjsStore = defineStore('bpjs', {
           if (res === 'Tidak ditemukan') { // artinya pasien baru
             // ke antrian pendaftaran
             // this.setTab('pasien-bpjs-baru')
+            this.pasien_rs = null
             this.form.pasienbaru = 1
             this.setTab('result')
           } else {
@@ -153,6 +169,7 @@ export const useBpjsStore = defineStore('bpjs', {
         const tanggal = formatDateDb(new Date())
         const params = { params: { kodepoli, tanggal } }
         try {
+          this.load = 'Cari Dokter'
           const resp = await api.get('/v1/anjungan/cari-dokter', params)
           console.log('dokter', resp)
           if (resp.status === 200 || resp.status === '200') {
@@ -161,7 +178,12 @@ export const useBpjsStore = defineStore('bpjs', {
               this.setTab('awal')
               notifErrVue('Maaf Ada Kesalahan, Harap Ulangi')
             } else {
-              this.dokters = res
+              const meta = resp.data.metadata
+              if (meta.code > 200) {
+                this.dokters = []
+              } else {
+                this.dokters = res
+              }
             }
           }
         } catch (error) {
@@ -176,30 +198,35 @@ export const useBpjsStore = defineStore('bpjs', {
     },
 
     async saveBookingPasienBpjs (barulama) {
+      const pasienbaru = barulama === 'baru' ? 1 : 0
       if (this.pasien_bpjs !== null) {
-        this.form.nama = this.pasien_bpjs.rujukan.peserta.nama
         this.form.jenispasien = 'JKN' // JKN / NON JKN
+        this.form.norm = this.pasien_rs ? this.pasien_rs.rs1 : null
+        this.form.namapasien = this.pasien_bpjs.rujukan.peserta.nama
         this.form.nomorkartu = this.pasien_bpjs.rujukan.peserta.noKartu
-        this.form.norm = this.pasien_rs.rs1 ? this.pasien_rs.rs1 : null
         this.form.nik = this.pasien_bpjs.rujukan.peserta.nik
         this.form.nohp = this.pasien_bpjs.rujukan.peserta.mr.noTelepon
-        this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
-        this.form.kodedokter = this.dokter.kodedokter ? this.dokter.kodedokter : null
+        this.form.kodepoli = this.pasien_bpjs.rujukan.poliRujukan.kode
+        this.form.namapoli = this.pasien_bpjs.rujukan.poliRujukan.nama
+        this.form.pasienbaru = pasienbaru
+        // this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
+        this.form.dokter = this.dokter ? this.dokter : null
+        // this.form.kodedokter = this.dokter ? this.dokter.kodedokter : null
         this.form.tanggalperiksa = formatDateTimeDb(new Date())
         this.form.tgl_ambil = formatDateTimeDb(new Date())
         this.form.nomorreferensi = this.pasien_bpjs.rujukan.noKunjungan
 
         try {
-          const resp = await api.post('v1/anjungan/booking', this.form)
+          const resp = await api.post('v1/booking/store', this.form)
           console.log('post bookings', resp)
-          if (resp.status === 201) {
-            if (barulama === 'baru') {
-              this.setTab('pasien-bpjs-baru')
-            } else {
-              console.log('pasien-lama')
-              // this.setTab('pasien-bpjs-lama')
-            }
-          }
+          // if (resp.status === 201) {
+          //   if (barulama === 'baru') {
+          //     this.setTab('pasien-bpjs-baru')
+          //   } else {
+          //     console.log('pasien-lama')
+          //     // this.setTab('pasien-bpjs-lama')
+          //   }
+          // }
         } catch (error) {
           notifErrVue('Maaf, Ada Kesalahan Harap Ulangi')
         }
@@ -208,20 +235,31 @@ export const useBpjsStore = defineStore('bpjs', {
         this.setTab('awal')
         this.pasien_bpjs = null
       }
+    },
+
+    resetFormPasien () {
+      this.form.namapasien = null
+      this.form.jenispasien = 'JKN' // JKN / NON JKN
+      this.form.nomorkartu = null
+      this.form.norm = null
+      this.form.nik = null
+      this.form.nohp = null
+      this.form.pasienbaru = 1 // 1(Ya), 0(Tidak)
+      this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
+      this.form.kodedokter = null
+      this.form.tanggalperiksa = formatDateTimeDb(new Date())
+      this.form.tgl_ambil = formatDateTimeDb(new Date())
+      this.form.nomorreferensi = null
+      this.form.kodepoli = null
+      this.form.namapoli = null
+      this.form.dokter = null
+
+      this.pasien_bpjs = null
+      this.pasien_rs = null
+      this.dokters = []
+      this.dokter = null
     }
-  },
-  resetFormPasien () {
-    this.form.nama = null
-    this.form.jenispasien = 'JKN' // JKN / NON JKN
-    this.form.nomorkartu = null
-    this.form.norm = null
-    this.form.nik = null
-    this.form.nohp = null
-    this.form.pasienbaru = 1 // 1(Ya), 0(Tidak)
-    this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
-    this.form.kodedokter = null
-    this.form.tanggalperiksa = formatDateTimeDb(new Date())
-    this.form.tgl_ambil = formatDateTimeDb(new Date())
-    this.form.nomorreferensi = null
-  }
+
+  }// end actions
+
 })

@@ -55,13 +55,15 @@
     </div>
     <!-- <div class="q-mt-lg">Apakah Benar Informasi di atas?</div> -->
     <div class="text-center">
-      <div class="q-mt-lg">Apakah Informasi diatas sudah benar? <br />
-        Jika sudah benar ... tekan <span class="text-weight-bold"> SETUJU </span> untuk
-        <span class="text-weight-bold"> PRINT ANTREAN </span> Anda <br/><br/>
-        Atau tekan <span class="text-weight-bold"> KEMBALI </span> Jika Anda ingin melakukan pencarian ulang Data Anda
+      <!-- <div clas="text-h5">Maaf</div> -->
+      <div class="text-h6">Anda Belum Terdaftar di RSUD MOHAMAD SALEH</div>
+      <div class="q-mt-lg text-h6">Anda akan di alihkkan ke <span class="text-weight-bold">ANTRIAN PENDAFTARAN TERLEBIH DAHULU</span>   <br /> <br />
+        tekan <span class="text-weight-bold"> SETUJU </span> untuk
+        <span class="text-weight-bold"> PRINT ANTREAN PENDAFTARAN </span> Anda <br/><br/>
+        Atau tekan <span class="text-weight-bold"> KEMBALI </span> Jika Anda tidak setuju
       </div>
     </div>
-
+    <!-- {{ store.pasien_bpjs }} -->
     <div class="absolute-bottom q-pa-md">
       <div class="row full-width">
         <div class="col-grow bg-negative cursor-pointer" @click="store.tab='awal'">
@@ -93,6 +95,6 @@ const usia = computed(() => {
 })
 
 function toPrint () {
-  store.saveBookingPasienBaru()
+  store.saveBookingPasienBpjs('baru')
 }
 </script>

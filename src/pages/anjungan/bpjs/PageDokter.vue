@@ -60,7 +60,8 @@
         <div class="info text-body1 q-mb-sm" style="margin-top:20px;">
         Silahkan Anda Pilih Dokter Terjadwal dibawah Berikut :
       </div>
-        <q-list bordered separator v-if="store.dokters.length">
+        <q-scroll-area style="height:300px;">
+        <q-list bordered separator v-if="store.dokters.length > 0">
           <q-item v-for="(item, i) in store.dokters" :key="i" tag="label" v-ripple>
             <q-item-section avatar>
               <q-radio v-model="store.dokter" :val="item" color="teal" />
@@ -74,8 +75,8 @@
           <div> Maaf Tidak Ada Jadwal Dokter Hari Ini </div>
           <div class="text-weight-bold"> 🙏 Kembali Lagi Besok Hari</div>
         </div>
-
-        <!-- {{ store.dokter }} -->
+        </q-scroll-area>
+        {{ store.dokters.length }}
       </div>
       <div class="absolute-bottom q-pa-md">
       <div class="row full-width">
@@ -114,7 +115,7 @@ onMounted(() => {
 })
 
 function goTo () {
-  store.saveBookingPasienBpjs('baru')
+  store.saveBookingPasienBpjs()
 }
 
 </script>
