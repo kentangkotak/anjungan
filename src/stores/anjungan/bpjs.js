@@ -79,6 +79,7 @@ export const useBpjsStore = defineStore('bpjs', {
     },
 
     async pencarianRujukan () {
+      this.resetFormPasien()
       this.setTab('loading')
       // 132701010323P000001
       const params = { params: { search: this.search } }
@@ -181,6 +182,7 @@ export const useBpjsStore = defineStore('bpjs', {
               const meta = resp.data.metadata
               if (meta.code > 200) {
                 this.dokters = []
+                this.dokter = null
               } else {
                 this.dokters = res
               }
@@ -210,7 +212,7 @@ export const useBpjsStore = defineStore('bpjs', {
         this.form.namapoli = this.pasien_bpjs.rujukan.poliRujukan.nama
         this.form.pasienbaru = pasienbaru
         // this.form.jeniskunjungan = 1 // 1 (Rujukan FKTP), 2 (Rujukan Internal), 3 (Kontrol), 4 (Rujukan Antar RS)
-        this.form.dokter = this.dokter ? this.dokter : null
+        this.form.dokter = this.dokter
         // this.form.kodedokter = this.dokter ? this.dokter.kodedokter : null
         this.form.tanggalperiksa = formatDateTimeDb(new Date())
         this.form.tgl_ambil = formatDateTimeDb(new Date())
