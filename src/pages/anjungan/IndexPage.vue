@@ -99,14 +99,46 @@ import { useRouter } from 'vue-router'
 import { Vue3Lottie } from 'vue3-lottie'
 import 'vue3-lottie/dist/style.css'
 import fileLink from 'src/assets/lottie/102873-clouds-loop.json'
+import { onBeforeUnmount, onUpdated, ref } from 'vue'
+import { useBpjsStore } from 'src/stores/anjungan/bpjs'
+import { useUmumStore } from 'src/stores/anjungan/umum'
 
 const store = useAnjunganStore()
+const bpjs = useBpjsStore()
+const umum = useUmumStore()
 
 const router = useRouter()
 
 function goTo (val) {
   router.push(val)
 }
+
+const angka = ref(0)
+const hitung = () => {
+  if (store.classes !== 0) {
+    angka.value = angka.value + 1
+    console.log(angka.value)
+    if (angka.value === 15) {
+      bpjs.setTab('awal')
+      umum.setTab('awal')
+      if (store.classes === 1) {
+        store.setAwal()
+        angka.value = 0
+      }
+    }
+  }
+}
+
+const updateTimeInterval = setInterval(hitung, 1000)
+
+onBeforeUnmount(() => {
+  clearInterval(updateTimeInterval)
+})
+
+onUpdated(() => {
+  angka.value = 0
+  console.log('updated', angka.value)
+})
 
 </script>
 

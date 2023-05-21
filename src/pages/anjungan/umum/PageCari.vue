@@ -4,7 +4,7 @@
       <div class="absolute-top text-center">
       <div class="q-ma-md">
         <div class="q-pa-md text-h5 text-weight-bold">
-          PESERTA BPJS / JKN
+          PESERTA UMUM / NON JKN
         </div>
         <q-separator />
       </div>
@@ -12,8 +12,8 @@
     <div class="q-pa-md q-my-lg">
       <!-- <div class="text-h4">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator> -->
-      <div class="info text-body1" style="margin-top:150px;">
-        Silahkan Anda cari berdasarkan <b>No RUJUKAN </b> yang didapat dari FASKES Tingkat I / Rumah Sakit Lain
+      <div class="info text-h5" style="margin-top:150px;">
+        Silahkan Anda Masukkan <b>No RM (Nomor Rekam Medis )</b> Anda 👇
       </div>
       <div class="q-my-lg">
         <app-input-kiosk
@@ -23,7 +23,7 @@
           :capslock="caps"
           @key-clicked="(val)=> keyClicked(val)"
           @clearable="store.search=''"
-          label="Cari Berdasarkan No. Rujukan"
+          label="Nomor Rekam Medis"
         />
       </div>
       <div class="absolute-bottom q-pa-md">
@@ -42,34 +42,27 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, onUpdated, ref } from 'vue'
-import { useBpjsStore } from 'src/stores/anjungan/bpjs'
-import { useRouter } from 'vue-router'
+import { onBeforeUnmount, onUpdated, ref } from 'vue'
+import { useUmumStore } from 'src/stores/anjungan/umum'
 // import { notifErrVue } from 'src/modules/utils.js'
 
 // const search = ref('')
 const kiosk = ref(null)
 const caps = ref(true)
 
-const router = useRouter()
-const store = useBpjsStore()
+const store = useUmumStore()
 
 function keyClicked (e) {
   store.kioskClicked(e)
 }
 
+import { useRouter } from 'vue-router'
+const router = useRouter()
 function goTo (val) {
   store.changeClasses()
   store.setTab('awal')
   router.push(val)
 }
-// import { useRouter } from 'vue-router'
-// const router = useRouter()
-// function goTo (val) {
-//   store.changeClasses()
-//   store.setTab('awal')
-//   router.push(val)
-// }
 
 const angka = ref(0)
 const hitung = () => {
@@ -90,9 +83,5 @@ onBeforeUnmount(() => {
 onUpdated(() => {
   angka.value = 0
   console.log('updated', angka.value)
-})
-
-onMounted(() => {
-  console.log('0213B0050423P000192')
 })
 </script>

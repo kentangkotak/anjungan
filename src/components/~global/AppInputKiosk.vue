@@ -41,13 +41,13 @@
                 <div class="flex flex-wrap flex-center">
                   <div v-for="(item, i) in keyboards" :key="i" class="q-pa-xs">
                     <q-btn @click="handleClick(item)"
-                    size="md"
+                    size="lg"
                     no-caps
-                    :class="`shadow-4 ${item==='Capslock'?'w-100':item==='Space'?'w-150':item==='Hapus'?'w-70':
-                    item==='Cari'?'w-70':'w-50'}`"
+                    :class="`shadow-4 ${item==='Capslock'?'w-150':item==='Space'?'w-150':item==='Hapus'?'w-70 bg-negative text-white':
+                    item==='Cari'?'w-70 bg-dark text-white':'w-50'}`"
                     >
                     <div v-if="item==='Capslock'||item==='Space'|| item==='Hapus'||item==='Cari'">{{ item }}</div>
-                    <div v-else>
+                    <div v-else class="text-weight-bold">
                       {{ caps?item.toUpperCase():item.toLowerCase() }}
                     </div>
                   </q-btn>
@@ -57,7 +57,7 @@
               <div class="col-3">
                 <div class="flex flex-wrap flex-center">
                   <div v-for="(x, n) in keyboards2" :key="n" class="q-pa-xs">
-                    <q-btn @click="emits('keyClicked', x)" :label="x" size="md" no-caps
+                    <q-btn @click="emits('keyClicked', x)" :label="x" size="lg" no-caps
                     :class="`shadow-4 w-50`"
                     />
                   </div>
@@ -126,7 +126,7 @@ function handleClick (val) {
 .popup {
   max-height: 200px;
   position: absolute;
-  bottom: -100px;
+  bottom: -130px;
   right: 0;
   left: 0;
 }

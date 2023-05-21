@@ -5,13 +5,13 @@
         <div class="text-h5 text-weight-bold">
         Maaf
       </div>
-      <div class="text-h5">Pencarian dengan Nomor Rujukan </div>
+      <div class="text-h5">Pencarian dengan Nomor RM </div>
       <div class="text-h4 text-weight-bold bord q-my-md">{{ store.search }}</div>
       <div  class="text-h5 text-negative">Tidak ditemukan</div>
       </div>
       <div class="absolute-bottom q-pa-md">
         <div class="row full-width">
-          <div class="col-grow bg-negative cursor-pointer" @click="goTo('/anjungan')">
+          <div class="col-grow bg-negative cursor-pointer" @click="goTo('/')">
           <div class="q-pa-lg text-center text-white f-20">KEMBALI</div>
         </div>
         <!-- <div class="col-grow bg-dark cursor-pointer">
@@ -25,21 +25,27 @@
 
 <script setup>
 // import { ref } from 'vue'
-import { useBpjsStore } from 'src/stores/anjungan/bpjs'
+import { useUmumStore } from 'src/stores/anjungan/umum'
 import { onBeforeUnmount, onUpdated, ref } from 'vue'
 import { useRouter } from 'vue-router'
 // import { notifErrVue } from 'src/modules/utils.js'
 
 const router = useRouter()
-const store = useBpjsStore()
+const store = useUmumStore()
 
 // function keyClicked (e) {
 //   store.kioskClicked(e)
 // }
 
+// function goTo (val) {
+//   store.changeClasses()
+//   store.setTab('awal')
+//   router.push(val)
+// }
+
 function goTo (val) {
-  store.changeClasses()
   store.setTab('awal')
+  store.changeClasses()
   router.push(val)
 }
 

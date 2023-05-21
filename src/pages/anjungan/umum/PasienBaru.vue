@@ -25,7 +25,7 @@
         <q-separator class="q-my-md" />
         <!-- {{ store.pasien_bpjs }} -->
       <div class="f-14">PASIEN BARU </div>
-      <div class="text-h5 text-weight-bold">BPJS</div>
+      <div class="text-h5 text-weight-bold">NON JKN</div>
       <div class="f-14">No. Antrian Anda: </div>
       <div class="q-ma-lg">
         <div class="text-h4 text-weight-bold bord q-pa-sm">{{ store.booking? store.booking.nomorantrean: '-' }}</div>
@@ -39,7 +39,7 @@
     </div>
     <div class="absolute-bottom q-pa-md">
         <div class="row full-width">
-          <div class="col-grow bg-negative cursor-pointer" @click="store.setTab('awal')">
+          <div class="col-grow bg-negative cursor-pointer" @click="goTo('/')">
             <div class="q-pa-lg text-center text-white f-20">BATAL</div>
           </div>
           <div class="col-grow bg-dark cursor-pointer" v-print="printObj">
@@ -51,15 +51,15 @@
 </template>
 
 <script setup>
+import { useUmumStore } from 'src/stores/anjungan/umum'
 import { computed, onBeforeUnmount, onUpdated, ref } from 'vue'
-import { useBpjsStore } from 'src/stores/anjungan/bpjs'
 import { useRouter } from 'vue-router'
 import { dateHuman } from 'src/modules/utils.js'
 
 import logo from 'src/assets/images/logo-rsud.png'
 
 const router = useRouter()
-const store = useBpjsStore()
+const store = useUmumStore()
 const loading = ref(false)
 
 const logox = computed(() => {
@@ -104,7 +104,6 @@ const printObj = {
 // const router = useRouter()
 // function goTo (val) {
 //   store.changeClasses()
-//   store.setTab('awal')
 //   router.push(val)
 // }
 
@@ -113,7 +112,7 @@ const hitung = () => {
   angka.value = angka.value + 1
   console.log(angka.value)
   if (angka.value === store.time) {
-    store.setTab('awal')
+    // store.setTab('awal')
     goTo('/')
   }
 }

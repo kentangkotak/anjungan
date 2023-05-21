@@ -57,8 +57,8 @@
     <div class="q-pa-md q-mt-lg">
 
       <div class="q-my-sm">
-        <div class="info text-body1 q-mb-sm" style="margin-top:20px;">
-        Silahkan Anda Pilih Dokter Terjadwal dibawah Berikut :
+        <div class="info text-h6 q-mb-md" style="margin-top:20px;">
+        Silahkan Anda Pilih Dokter Terjadwal dibawah Berikut 👇:
       </div>
         <q-scroll-area style="height:300px;">
         <q-list bordered separator v-if="store.dokters.length > 0">
@@ -84,7 +84,7 @@
           <div class="q-pa-lg text-center text-white f-20">KEMBALI</div>
         </div>
         <div v-if="store.dokters.length" class="col-grow bg-dark cursor-pointer">
-          <div class="q-pa-lg text-center text-white f-20" @click="goTo()">LANJUTKAN</div>
+          <div class="q-pa-lg text-center text-white f-20" @click="goToX()">LANJUTKAN</div>
         </div>
       </div>
     </div>
@@ -95,12 +95,13 @@
 
 <script setup>
 import 'vue3-lottie/dist/style.css'
-import { computed, onMounted } from 'vue'
+import { computed, onBeforeUnmount, onMounted, onUpdated, ref } from 'vue'
 import { useBpjsStore } from 'src/stores/anjungan/bpjs'
 
 const store = useBpjsStore()
 
 import user from 'src/assets/images/nouser.png'
+import { notifErrVue } from 'src/modules/utils'
 const nouser = computed(() => new URL(user, import.meta.url).href)
 const usia = computed(() => {
   const x = store.pasien_bpjs ? store.pasien_bpjs.rujukan.peserta.umur.umurSekarang : false
@@ -114,8 +115,44 @@ onMounted(() => {
   store.cariDokter()
 })
 
-function goTo () {
+function goToX () {
+  if (store.dokter === null) {
+    return notifErrVue('Maaf ... Pilih Dokter Terlebih Dahulu')
+  }
   store.saveBookingPasienBpjs()
 }
+
+import { useRouter } from 'vue-router'
+const router = useRouter()
+function goTo (val) {
+  store.changeClasses()
+  store.setTab('awal')
+  router.push(val)
+}
+
+const angka = ref(0)
+const hitung = () => {
+  angka.value = angka.value + 1
+  console.log(angka.value)
+  if (angka.value === store.time) {
+    store.setTab('awal')
+    goTo('/')
+  }
+}
+
+const updateTimeInterval = setInterval(hitung, 1000)
+
+onBeforeUnmount(() => {
+  clearInterval(updateTimeInterval)
+})
+
+onUpdated(() => {
+  angka.value = 0
+  console.log('updated', angka.value)
+})
+
+onMounted(() => {
+  console.log('0213B0050423P000192')
+})
 
 </script>

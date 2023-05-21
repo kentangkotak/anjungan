@@ -10,6 +10,9 @@ export const useAnjunganStore = defineStore('anjungan', {
   actions: {
     changeClasses () {
       this.classes === 0 ? this.classes = 1 : this.classes = 1
+    },
+    setAwal () {
+      this.classes = 0
     }
   }
 })

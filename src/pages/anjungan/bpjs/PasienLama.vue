@@ -24,13 +24,13 @@
 
         <q-separator class="q-my-md" />
         <!-- {{ store.pasien_bpjs }} -->
-      <div class="f-14">PASIEN BARU </div>
+      <div class="f-14">PASIEN POLIKLINIK </div>
       <div class="text-h5 text-weight-bold">BPJS</div>
       <div class="f-14">No. Antrian Anda: </div>
       <div class="q-ma-lg">
         <div class="text-h4 text-weight-bold bord q-pa-sm">{{ store.booking? store.booking.nomorantrean: '-' }}</div>
       </div>
-      <div class="f-14 text-weight-bold q-mb-md text-accent">LOKET PENDAFTARAN {{ store.layanan? store.layanan.kode: '-' }}</div>
+      <div class="f-16 text-weight-bold q-mb-md text-accent">{{ store.layanan? store.layanan.nama: '-' }}</div>
       <div class="f-14">SILAHKAN MENUNGGU NOMOR ANTRIAN DIPANGGIL</div>
       <div class="f-14">NOMOR INI HANYA BERLAKU PADA HARI DICETAK</div>
       <div class="f-14 q-mt-md text-accent">{{ dateHuman(new Date())}}</div>

@@ -5,8 +5,9 @@ import { formatDateDb, formatDateTimeDb } from 'src/utility/formatter'
 
 export const useBpjsStore = defineStore('bpjs', {
   state: () => ({
+    time: 30,
     classes: 0,
-    tab: 'awal', // pasien-bpjs-baru | dokter | result | loading | awal | rujukan not found
+    tab: 'awal', // pasien-bpjs-baru | pasien-bpjs-baru | dokter | result | loading | awal | rujukan not found
     load: 'Cecking Data',
 
     // search: '0213B0050423P000192',
@@ -37,6 +38,9 @@ export const useBpjsStore = defineStore('bpjs', {
       dokter: null
     },
 
+    booking: null,
+    layanan: null,
+
     rsud: {
       nama: 'RSUD MOHAMAD SALEH',
       kota: 'KOTA PROBOLINGGO',
@@ -52,6 +56,7 @@ export const useBpjsStore = defineStore('bpjs', {
     },
     setTab (val) {
       if (val === 'awal') {
+        this.search = ''
         this.resetFormPasien()
         this.load = 'Cecking Data'
       }
@@ -200,6 +205,7 @@ export const useBpjsStore = defineStore('bpjs', {
     },
 
     async saveBookingPasienBpjs (barulama) {
+      this.setTab('loading')
       const pasienbaru = barulama === 'baru' ? 1 : 0
       if (this.pasien_bpjs !== null) {
         this.form.jenispasien = 'JKN' // JKN / NON JKN
@@ -218,17 +224,26 @@ export const useBpjsStore = defineStore('bpjs', {
         this.form.tgl_ambil = formatDateTimeDb(new Date())
         this.form.nomorreferensi = this.pasien_bpjs.rujukan.noKunjungan
 
+        this.load = 'Simpan Data'
         try {
           const resp = await api.post('v1/booking/store', this.form)
           console.log('post bookings', resp)
-          // if (resp.status === 201) {
-          //   if (barulama === 'baru') {
-          //     this.setTab('pasien-bpjs-baru')
-          //   } else {
-          //     console.log('pasien-lama')
-          //     // this.setTab('pasien-bpjs-lama')
-          //   }
-          // }
+          if (resp.status === 200) {
+            const meta = resp.data.metadata ? resp.data.metadata : false
+            if (meta.code === 200 || meta.code === '200') {
+              this.booking = resp.data.result.booking
+              this.layanan = resp.data.result.layanan
+              if (barulama === 'baru') {
+                this.setTab('pasien-bpjs-baru')
+              } else {
+                // console.log('pasien-bpjs-lama')
+                this.setTab('pasien-bpjs-lama')
+              }
+            } else {
+              notifErrVue(meta.message)
+              this.setTab('awal')
+            }
+          }
         } catch (error) {
           notifErrVue('Maaf, Ada Kesalahan Harap Ulangi')
         }
@@ -260,6 +275,22 @@ export const useBpjsStore = defineStore('bpjs', {
       this.pasien_rs = null
       this.dokters = []
       this.dokter = null
+
+      this.booking = null
+      this.layanan = null
+    },
+
+    cetak_antrean () {
+      const params = { params: { kodebooking: this.booking ? this.booking.kodebooking : null } }
+      return new Promise((resolve, reject) => {
+        api.get('v1/booking/cetak-antrean', params).then((resp) => {
+          console.log('update booking', resp)
+          resolve(resp)
+        }).catch((error) => {
+          notifErrVue('Maaf Ada Kesalahan... Harap Ulangi!')
+          reject(error)
+        })
+      })
     }
 
   }// end actions

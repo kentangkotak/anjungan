@@ -22,16 +22,18 @@
               <div class="q-mr-md">
                 <!-- tempat -->
                 <div>Nama</div>
-                <div>NIK</div>
-                <div>NOKA</div>
+                <div>NORM</div>
+                <!-- <div>NOKA</div> -->
                 <div>USIA</div>
+                <!-- <div>ALAMAT</div> -->
               </div>
               <div>
                 <!-- isi -->
-                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.nama: '-' }}</div>
-                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.nik: '-' }}</div>
-                <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.noKartu: '-' }}</div>
-                <div> : {{ usia }}</div>
+                <div> : {{ store.pasien? store.pasien.rs2: '-' }}</div>
+                <div> : {{ store.pasien? store.pasien.rs1: '-' }}</div>
+                <div> : {{ store.pasien? store.pasien.rs35: '-' }} Tahun</div>
+                <!-- <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.noKartu: '-' }}</div> -->
+                <!-- <div> : {{ store.pasien? store.pasien.rs4: '-' }}</div> -->
               </div>
             </div>
 
@@ -46,7 +48,7 @@
       <q-card-actions>
         <div class="row">
           <div class="q-mr-md">
-            <div>Asal Dari Faskes Tingkat {{ store.pasien_bpjs? store.pasien_bpjs.asalFaskes: '-' }}  {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.provPerujuk.nama: '-' }}</div>
+            <div>Alamat {{ store.pasien? store.pasien.rs4: '-' }} </div>
           </div>
 
         </div>
@@ -56,17 +58,20 @@
     <!-- <div class="q-mt-lg">Apakah Benar Informasi di atas?</div> -->
     <div class="text-center">
       <!-- <div clas="text-h5">Maaf</div> -->
-      <div class="text-h6">Anda Belum Terdaftar di RSUD MOHAMAD SALEH</div>
-      <div class="q-mt-lg text-h6">Anda akan di alihkkan ke <span class="text-weight-bold">ANTRIAN PENDAFTARAN TERLEBIH DAHULU</span>   <br /> <br />
+      <!-- <div class="text-h6">Anda Belum Terdaftar di RSUD MOHAMAD SALEH</div> -->
+      <div class="q-mt-lg text-h6">Anda akan di alihkkan ke Antrian <span class="text-weight-bold"> LOKET PEMBAYARAN TERLEBIH DAHULU</span>   <br />
+
+        Sebelum menuju POLI yang dituju <br /><br />
+
         tekan <span class="text-weight-bold"> SETUJU </span> untuk
-        <span class="text-weight-bold"> PRINT ANTREAN PENDAFTARAN </span> Anda <br/><br/>
+        <span class="text-weight-bold"> PRINT ANTREAN LOKET </span> Anda <br/><br/>
         Atau tekan <span class="text-weight-bold"> KEMBALI </span> Jika Anda tidak setuju
       </div>
     </div>
     <!-- {{ store.pasien_bpjs }} -->
     <div class="absolute-bottom q-pa-md">
       <div class="row full-width">
-        <div class="col-grow bg-negative cursor-pointer" @click="store.tab='awal'">
+        <div class="col-grow bg-negative cursor-pointer" @click="goTo('/')">
           <div class="q-pa-lg text-center text-white f-20">KEMBALI</div>
         </div>
         <div class="col-grow bg-dark cursor-pointer">
@@ -78,24 +83,15 @@
 </template>
 
 <script setup>
-import { useBpjsStore } from 'src/stores/anjungan/bpjs'
+import { useUmumStore } from 'src/stores/anjungan/umum'
 import { computed, onBeforeUnmount, onUpdated, ref } from 'vue'
 
 import user from 'src/assets/images/nouser.png'
 
-const store = useBpjsStore()
+const store = useUmumStore()
 const nouser = computed(() => new URL(user, import.meta.url).href)
-
-const usia = computed(() => {
-  const x = store.pasien_bpjs ? store.pasien_bpjs.rujukan.peserta.umur.umurSekarang : false
-  if (!x) {
-    return '-'
-  }
-  return x.split(',')[0]
-})
-
 function toPrint () {
-  store.saveBookingPasienBpjs('baru')
+  store.saveBookingPasienUmum('lama')
 }
 
 import { useRouter } from 'vue-router'

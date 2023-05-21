@@ -48,6 +48,9 @@
               <q-tab-panel name="pasien-bpjs-baru">
                 <PasienBaru />
               </q-tab-panel>
+              <q-tab-panel name="pasien-bpjs-lama">
+                <PasienLama />
+              </q-tab-panel>
               <q-tab-panel name="dokter">
                 <PageDokter />
               </q-tab-panel>
@@ -83,7 +86,9 @@ import PageDokter from './bpjs/PageDokter.vue'
 import PageResult from './bpjs/PageResult.vue'
 import PageCariNotFound from './bpjs/PageCariNotFound.vue'
 import PasienBaru from './bpjs/PasienBaru.vue'
+import PasienLama from './bpjs/PasienLama.vue'
 import PageLoading from './bpjs/PageLoading.vue'
+
 </script>
 
 <style lang="scss" scoped>
