@@ -31,7 +31,7 @@
                 <!-- isi -->
                 <div> : {{ store.pasien? store.pasien.rs2: '-' }}</div>
                 <div> : {{ store.pasien? store.pasien.rs1: '-' }}</div>
-                <div> : {{ store.pasien? store.pasien.rs35: '-' }} Tahun</div>
+                <div> : {{ usia }}</div>
                 <!-- <div> : {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.peserta.noKartu: '-' }}</div> -->
                 <!-- <div> : {{ store.pasien? store.pasien.rs4: '-' }}</div> -->
               </div>
@@ -93,6 +93,14 @@ const nouser = computed(() => new URL(user, import.meta.url).href)
 function toPrint () {
   store.saveBookingPasienUmum('lama')
 }
+
+const usia = computed(() => {
+  const x = store.pasien ? store.pasien.usia : false
+  if (!x) {
+    return '-'
+  }
+  return x.split(',')[0]
+})
 
 import { useRouter } from 'vue-router'
 const router = useRouter()

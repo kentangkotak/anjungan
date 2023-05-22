@@ -10,8 +10,8 @@ export const useBpjsStore = defineStore('bpjs', {
     tab: 'awal', // pasien-bpjs-baru | pasien-bpjs-baru | dokter | result | loading | awal | rujukan not found
     load: 'Cecking Data',
 
-    // search: '0213B0050423P000192',
-    search: '132701020423Y000379', // ini pasien baru
+    search: '0213B0050423P000192',
+    // search: '132701020423Y000379', // ini pasien baru
     // search: '0193R0060423B000024',
 
     pasien_bpjs: null,
