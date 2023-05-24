@@ -31,7 +31,7 @@ const routes = [
     children: [
       // { path: '', component: () => import('pages/direktur/IndexPage.vue') },
       { path: '', redirect: '/display' },
-      { path: '/display', name: 'display', component: () => import('pages/display/IndexPage.vue') }
+      { path: '/display/:name', name: 'display', component: () => import('pages/display/IndexPage.vue') }
     ]
   },
 
