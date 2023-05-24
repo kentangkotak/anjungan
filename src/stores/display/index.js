@@ -20,14 +20,14 @@ export const useDisplayStore = defineStore('display_antrian', {
       const params = { params: this.params }
       try {
         const resp = await api.get('v1/fordisplay/display', params)
-        console.log('display', resp)
+        console.log('fordisplay', resp)
         if (resp.status === 200) {
           this.item = resp.data
-          this.items = this.item ? this.item.units : []
+          this.items = this.item ? this.item.unit : []
         }
         this.loading = false
       } catch (error) {
-        console.log('display', error)
+        console.log('fordisplay', error)
         this.loading = false
       }
     }

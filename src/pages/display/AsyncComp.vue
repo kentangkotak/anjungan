@@ -41,7 +41,7 @@
       <div class="col grow">
         <div class="row full-height">
           <!-- TEMPAT DISPLAY ANTRIAN -->
-          <div class="col-5 bg-dark">
+          <div class="col-5 bg-dark" style="overflow: hidden;">
             <div class="q-pl-lg q-pt-lg q-pb-lg">
               <q-card class="my-card">
                 <q-card-section class="bg-blue text-white">
@@ -59,13 +59,14 @@
                   <q-btn flat size="xl">Sisa Antrian : - </q-btn>
                 </q-card-actions>
               </q-card>
-              <div class="row q-pt-lg">
-                  <Vue3Marquee>
-                    <div class="full-width" v-for="(x, i) in 3" :key="i">
-                        <q-card class="carding q-mr-md" >
+              <div class="q-pt-lg">
+                <Vue3Marquee :duration="40">
+                  <div class="" style="overflow: hidden;">
+                    <div class="row" v-if="props.items.length">
+                        <q-card class="carding q-mr-md" v-for="(row, i) in props.items" :key="row">
                           <q-card-section :class="`bg-${colors[i]} text-white`">
-                            <div class="text-h5 text-center">LOKET {{ x }}</div>
-                            <div class="f-14 text-center">PASIEN BPJS</div>
+                            <div class="f-18 text-center">LOKET {{ row.kode_layanan }}{{ row.loket_no }}</div>
+                            <div class="f-14 text-center">{{row.loket}} </div>
                           </q-card-section>
 
                           <q-separator />
@@ -79,7 +80,8 @@
                           </q-card-actions>
                         </q-card>
                     </div>
-                  </Vue3Marquee>
+                  </div>
+                </Vue3Marquee>
               </div>
             </div>
           </div>
@@ -89,7 +91,8 @@
             <div class="column full-height q-pa-lg ">
               <div class="col full-height tempat-video">
                 <div class="full-height column items-center flex-center q-mx-auto full-width relative-position">
-                    <app-video :videos="store.videos" />
+                    <app-loading v-if="store.loading" />
+                    <app-video v-else :videos="store.videos" :loading="store.loading" />
                 </div>
               </div>
               <!-- <div class="col-2 tempat-list-antrian bg-teal">
@@ -150,6 +153,17 @@
 import { useVideoStore } from 'src/stores/video'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
+const props = defineProps({
+  item: {
+    type: Object,
+    default: null
+  },
+  items: {
+    type: Array,
+    default: () => []
+  }
+})
+
 const store = useVideoStore()
 let date = new Date()
 
@@ -195,6 +209,7 @@ onBeforeUnmount(() => {
 
 onMounted(() => {
   store.getData()
+  console.log('props', props)
 })
 </script>
 
@@ -250,6 +265,12 @@ onMounted(() => {
 }
 .even {
   color: rgb(137, 147, 156);
+}
+
+.carding {
+  width:300px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 </style>

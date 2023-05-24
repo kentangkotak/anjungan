@@ -2,7 +2,7 @@
   <div class="player">
     <div class="player_sizer">
       <!-- <iframe src="~assets/video/NE.mp4" type="video/mp4" allow="autoplay" id="video" style="display:none"></iframe> -->
-      <video id="vidEl" ref="refVideo"
+      <video v-if="!loading" id="vidEl" ref="refVideo"
         :key="idx"
         :autoplay="autoplay"
         :muted="muted"
@@ -25,6 +25,10 @@ const props = defineProps({
   videos: {
     type: Array,
     default: () => []
+  },
+  loading: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -59,7 +63,7 @@ function getType () {
 }
 
 function played () {
-  refVideo.value.play()
+  return refVideo.value ? refVideo.value.play() : false
 }
 function loadedStart (e) {
   console.log('loaded', e)
