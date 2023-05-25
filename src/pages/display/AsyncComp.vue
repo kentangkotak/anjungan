@@ -60,7 +60,7 @@
                 </q-card-actions>
               </q-card>
               <div class="q-pt-lg">
-                <Vue3Marquee :duration="40">
+                <Vue3Marquee>
                   <div class="" style="overflow: hidden;">
                     <div class="row" v-if="props.items.length">
                         <q-card class="carding q-mr-md" v-for="(row, i) in props.items" :key="row">
@@ -106,6 +106,7 @@
       <div class="col-1 bg-white">
         <div class="row items-center full-height q-px-lg">
           <Vue3Marquee
+            :duration="50"
             :gradient="true"
             :gradientColor="[255, 255, 255]"
             :gradientWidth="`10%`"

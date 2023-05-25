@@ -9,10 +9,15 @@
         @loadedmetadata="loadedMD($event)"
         @loadstart="loadedStart($event)"
         @ended="onEnded()"
+        controls
         >
         <source :type="getType()" :src="getVideo()">
       </video>
-      <q-btn label="play" @click="played($event)"></q-btn>
+      <!-- <div class="absolute-bottom">
+        <div class="row q-pa-md">
+          <q-btn label="play" @click="played($event)" class="bg-blue"></q-btn>
+        </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -29,6 +34,10 @@ const props = defineProps({
   loading: {
     type: Boolean,
     default: true
+  },
+  volume: {
+    type: String,
+    default: '0.2'
   }
 })
 
@@ -63,10 +72,12 @@ function getType () {
 }
 
 function played () {
+  console.log()
   return refVideo.value ? refVideo.value.play() : false
 }
 function loadedStart (e) {
-  console.log('loaded', e)
+  e.target.volume = parseFloat(props.volume)
+  console.log('loaded', e.target.volume)
   played()
 }
 
