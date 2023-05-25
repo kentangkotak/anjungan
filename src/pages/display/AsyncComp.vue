@@ -4,33 +4,34 @@
       <!-- header -->
       <div class="col-2 header ">
       <!-- <div class="head full-width"> -->
-        <div class="row items-center head">
-            <div class="q-px-lg">
+        <div class="row head">
+            <div class="q-px-lg q-pt-md">
               <div class="row items-center">
                 <q-avatar
-                size="90px"
-                 class="shadow-8"
+                  :size="`${app.txt100}px`"
+                  class="shadow-8"
               >
                 <img src="~assets/images/logo-rsud.png">
               </q-avatar>
               <div class="q-ml-md text-dark">
-                <div class="text-h4 text-weight-bold">UOBK RSUD  MOHAMAD SALEH</div>
-                <div class="text-h5" style="margin-top: 0px;">KOTA PROBOLINGGO</div>
+                <div class="text-weight-bold" :style="`font-size: ${app.txtXl}px;`">UOBK RSUD  MOHAMAD SALEH</div>
+                <div class="" :style="`font-size: ${app.txt28}px; margin-top:-5px`">KOTA PROBOLINGGO</div>
               </div>
               </div>
             </div>
             <!-- TEMPAT JAM DIGITAL -->
             <q-space></q-space>
-          <div class="q-py-sm">
+          <div class="q-pt-sm">
             <div class="tempat-jam text-white">
               <!-- <div class="modif"></div> -->
-              <div class="row items-center justify-end  q-px-lg q-pt-lg">
-                <div class="text-h1 text-weight-bold">{{ jam }} </div>
-                <div class="text-h1 text-weight-bold q-mx-md"> : {{ menit }} </div>
-                <div class="text-h1 text-weight-bold q-ml-md"> : {{ detik }}</div>
+              <div class="row justify-end  q-px-lg q-pt-lg" :style="`font-size: ${app.txt70}px;`">
+                <div class="text-weight-bold">{{ jam }} </div>
+                <div class="text-weight-bold q-mx-sm"> : {{ menit }} </div>
+                <div class="text-weight-bold q-ml-sm"> : {{ detik }}</div>
               </div>
               <div class="text-right q-px-lg">
-                <q-btn color="negative" size="md" disable :label="tanggal.toDateString()"></q-btn>
+                <!-- <q-btn color="negative" size="md" disable :label="tanggal.toDateString()"></q-btn> -->
+                <div style="margin-top:-10px;">{{ tanggal.toDateString() }}</div>
               </div>
 
             </div>
@@ -38,45 +39,47 @@
         </div>
       </div>
       <!-- content -->
-      <div class="col grow">
+      <div class="col-9"  style="overflow: hidden;">
         <div class="row full-height">
           <!-- TEMPAT DISPLAY ANTRIAN -->
-          <div class="col-5 bg-dark" style="overflow: hidden;">
+          <div class="col-4 bg-dark" style="overflow: hidden;">
             <div class="q-pl-lg q-pt-lg q-pb-lg">
-              <q-card class="my-card">
-                <q-card-section class="bg-blue text-white">
-                  <div class="text-h2 text-center">LOKET A</div>
-                  <div class="text-h5 text-center">PENDAFTARAN PASIEN UMUM</div>
+              <q-card class="my-card" style="height:60%">
+                <q-card-section :class="`bg-${colors[7]} text-white`">
+                  <div class="text-center text-weight-bold" :style="`font-size: ${app.txtXl}px;`">LOKET A</div>
+                  <div class="text-center" :style="`font-size: ${app.txtH5}px; margin-top:-5px;`">PENDAFTARAN PASIEN UMUM</div>
                 </q-card-section>
 
                 <q-separator />
                 <q-card-section class="">
-                  <div class="text-h5 text-center">Nomor Antrian</div>
-                  <div class="text-h1 text-center">A003</div>
+                  <div class="text-center" :style="`font-size: ${app.txtH5}px;`">Nomor Antrian</div>
+                  <div class="text-center" :style="`font-size: ${app.txt50}px; margin-top:-5px`">A003</div>
                 </q-card-section>
                 <q-separator />
                 <q-card-actions align="center" class="bg-negative text-white">
-                  <q-btn flat size="xl">Sisa Antrian : - </q-btn>
+                  <!-- <q-btn flat size="lg">Sisa Antrian : - </q-btn> -->
+                  <div> Sisa Antrian : - </div>
                 </q-card-actions>
               </q-card>
-              <div class="q-pt-lg">
+              <div class="q-pt-md">
                 <Vue3Marquee>
                   <div class="" style="overflow: hidden;">
                     <div class="row" v-if="props.items.length">
-                        <q-card class="carding q-mr-md" v-for="(row, i) in props.items" :key="row">
-                          <q-card-section :class="`bg-${colors[i]} text-white`">
-                            <div class="f-18 text-center">LOKET {{ row.kode_layanan }}{{ row.loket_no }}</div>
-                            <div class="f-14 text-center">{{row.loket}} </div>
-                          </q-card-section>
+                        <q-card class="carding q-mr-md" v-for="(row, i) in props.items" :key="row" :style="`width: ${app.txt100*3}px;`">
+                          <div :class="`bg-${colors[i]} text-white q-pa-sm`">
+                            <div class="text-center text-weight-bold" :style="`font-size: ${app.txtH5}px;`">LOKET {{ row.kode_layanan }}{{ row.loket_no }}</div>
+                            <div class="text-center" :style="`font-size: ${app.txtLg}px; margin-top:-5px;`">{{row.loket}} </div>
+                          </div>
 
                           <q-separator />
                           <q-card-section class="">
-                            <div class="f-14 text-center">Nomor Antrian</div>
-                            <div class="text-h3 text-center">A003</div>
+                            <div class="text-center" :style="`font-size: ${app.txtLg}px; margin-top:-5px;`">Nomor Antrian</div>
+                            <div class="text-center" :style="`font-size: ${app.txt48}px; margin-top:-5px;`">A003</div>
                           </q-card-section>
                           <q-separator />
                           <q-card-actions align="center" class="bg-negative text-white">
-                            <q-btn flat size="lg">Sisa Antrian : -</q-btn>
+                            <!-- <q-btn flat size="lg">Sisa Antrian : -</q-btn> -->
+                            <div> Sisa Antrian : - </div>
                           </q-card-actions>
                         </q-card>
                     </div>
@@ -87,7 +90,7 @@
           </div>
 
           <!-- TEMPAT DISPLAY VIDEO -->
-          <div class="col-7 bg-dark">
+          <div class="col-8 bg-dark">
             <div class="column full-height q-pa-lg ">
               <div class="col full-height tempat-video">
                 <div class="full-height column items-center flex-center q-mx-auto full-width relative-position">
@@ -151,6 +154,7 @@
 </template>
 
 <script setup>
+import { useAppStore } from 'src/stores/app'
 import { useVideoStore } from 'src/stores/video'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
@@ -166,6 +170,7 @@ const props = defineProps({
 })
 
 const store = useVideoStore()
+const app = useAppStore()
 let date = new Date()
 
 const tanggal = ref(date)
@@ -188,7 +193,7 @@ const colors = ref([
   'orange',
   'brown',
   'blue-grey',
-  'cyan'
+  'blue'
 ])
 
 // const currentColor = computed(() => { return colors[Math.floor(Math.random() * colors.length)] })
@@ -210,7 +215,7 @@ onBeforeUnmount(() => {
 
 onMounted(() => {
   store.getData()
-  console.log('props', props)
+  console.log('app', app.height)
 })
 </script>
 
@@ -236,6 +241,7 @@ onMounted(() => {
   width:600px;
   justify-content: flex-end;
   position: relative;
+  height: 100%;
   // &::before {
   //   content: '';
   //   width:100px;
@@ -269,7 +275,7 @@ onMounted(() => {
 }
 
 .carding {
-  width:300px;
+  // width:300px;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }

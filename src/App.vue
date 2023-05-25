@@ -3,16 +3,11 @@
 </template>
 
 <script setup>
-// import { useQuasar } from 'quasar'
-import { onMounted } from 'vue'
-// const $q = useQuasar()
-onMounted(() => {
-  // $q.fullscreen.request()
-  //   .then(() => {
-  //   // success!
-  //   })
-  //   .catch(_err => {
-  //   // oh, no!!!
-  //   })
+import { channel } from './utility/sockets'
+
+channel.subscribed(() => {
+  console.log('subscribed!!!')
+}).listen('.antrean', (e) => {
+  console.log('listen', e)
 })
 </script>
