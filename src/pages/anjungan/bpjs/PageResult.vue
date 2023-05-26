@@ -2,7 +2,7 @@
   <div class="q-pa-md full-height bg-white" style="border-radius: 5px;">
     <div class="absolute-top text-center">
       <div class="q-ma-md">
-        <div class="q-pa-md text-h5 text-weight-bold">
+        <div class="q-pa-md text-weight-bold" :style="`font-size:${app.txt28}px`">
           BIODATA PASIEN
         </div>
         <q-separator />

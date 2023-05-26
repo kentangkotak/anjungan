@@ -11,8 +11,7 @@ export const useDisplayStore = defineStore('display_antrian', {
     loading: false,
 
     // dari websocket
-    panggil: null,
-    unit: null
+    panggil: null
   }),
   getters: {
     // doubleCount: (state) => state.counter * 2
@@ -26,14 +25,17 @@ export const useDisplayStore = defineStore('display_antrian', {
         const resp = await api.get('v1/fordisplay/display', params)
         console.log('fordisplay', resp)
         if (resp.status === 200) {
-          this.item = resp.data
-          this.items = this.item ? this.item.unit : []
+          this.items = resp.data
         }
         this.loading = false
       } catch (error) {
         console.log('fordisplay', error)
         this.loading = false
       }
+    },
+
+    setPanggil (val) {
+      this.panggil = val
     }
   }
 })

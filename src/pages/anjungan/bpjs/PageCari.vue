@@ -3,7 +3,7 @@
     <!-- <q-card flat rounded bordered class="bg-grey-2"> -->
       <div class="absolute-top text-center">
       <div class="q-ma-md">
-        <div class="q-pa-md text-h5 text-weight-bold">
+        <div class="q-pa-md text-weight-bold" :style="`font-size:${app.txt28}px`">
           PESERTA BPJS / JKN
         </div>
         <q-separator />
@@ -12,7 +12,7 @@
     <div class="q-pa-md q-my-lg">
       <!-- <div class="text-h4">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator> -->
-      <div class="info text-body1" style="margin-top:150px;">
+      <div class="info text-body1" :style="`font-size:${app.txtH5}px; margin-top:${app.txt100}px`">
         Silahkan Anda cari berdasarkan <b>No RUJUKAN </b> yang didapat dari FASKES Tingkat I / Rumah Sakit Lain
       </div>
       <div class="q-my-lg">
@@ -29,7 +29,7 @@
       <div class="absolute-bottom q-pa-md">
       <div class="row full-width">
         <div class="col-grow bg-negative cursor-pointer" @click="goTo('/anjungan')">
-          <div class="q-pa-lg text-center text-white f-20">KEMBALI</div>
+          <div class="q-pa-md text-center text-white" :style="`font-size:${app.txt28}px`">KEMBALI</div>
         </div>
         <!-- <div class="col-grow bg-dark cursor-pointer">
           <div class="q-pa-lg text-center text-white">SETUJU</div>
@@ -45,9 +45,10 @@
 import { onBeforeUnmount, onMounted, onUpdated, ref } from 'vue'
 import { useBpjsStore } from 'src/stores/anjungan/bpjs'
 import { useRouter } from 'vue-router'
+import { useAppStore } from 'src/stores/app'
 // import { notifErrVue } from 'src/modules/utils.js'
 
-// const search = ref('')
+const app = useAppStore()
 const kiosk = ref(null)
 const caps = ref(true)
 

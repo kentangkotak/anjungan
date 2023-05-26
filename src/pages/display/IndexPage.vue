@@ -1,7 +1,6 @@
 <template>
   <q-page class="fullscreen bg-dark">
-    <app-loading v-if="store.loading" />
-    <AsyncComp v-else :key="queryparam" :item="store.item" :items="store.items"/>
+    <AsyncComp :key="queryparam" :item="store.panggil" :items="store.items"/>
   </q-page>
 </template>
 
