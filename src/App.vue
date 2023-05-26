@@ -3,8 +3,10 @@
 </template>
 
 <script setup>
+import { useDisplayStore } from './stores/display'
 import { channel } from './utility/sockets'
 
+const call = useDisplayStore()
 channel.subscribed(() => {
   console.log('subscribed!!!')
 }).listen('.antrean', (e) => {
