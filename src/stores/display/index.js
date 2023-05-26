@@ -8,7 +8,11 @@ export const useDisplayStore = defineStore('display_antrian', {
     params: {
       kode: null
     },
-    loading: false
+    loading: false,
+
+    // dari websocket
+    panggil: null,
+    unit: null
   }),
   getters: {
     // doubleCount: (state) => state.counter * 2
