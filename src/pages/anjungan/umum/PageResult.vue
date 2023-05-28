@@ -2,14 +2,14 @@
   <div class="q-pa-md full-height bg-white" style="border-radius: 5px;">
     <div class="absolute-top text-center">
       <div class="q-ma-md">
-        <div class="q-pa-md text-h5 text-weight-bold">
+        <div class="q-pa-md anjungan-judul text-weight-bold">
           BIODATA PASIEN
         </div>
         <q-separator />
       </div>
     </div>
     <div class="q-pa-lg">
-      <q-card  bordered class="bg-blue text-white" style="margin-top:60px;">
+      <q-card  bordered class="bg-blue text-white" :style="`margin-top:${app.txt50}px;`">
       <q-card-section horizontal>
         <q-img
           class="col-2"
@@ -18,7 +18,7 @@
 
         <q-card-section>
           <div class="q-ml-lg">
-            <div class="row">
+            <div class="row anjungan-desc">
               <div class="q-mr-md">
                 <!-- tempat -->
                 <div>Nama</div>
@@ -47,7 +47,7 @@
 
       <q-card-actions>
         <div class="row">
-          <div class="q-mr-md">
+          <div class="q-mr-md anjungan-desc">
             <div>Alamat {{ store.pasien? store.pasien.rs4: '-' }} </div>
           </div>
 
@@ -59,7 +59,7 @@
     <div class="text-center">
       <!-- <div clas="text-h5">Maaf</div> -->
       <!-- <div class="text-h6">Anda Belum Terdaftar di RSUD MOHAMAD SALEH</div> -->
-      <div class="q-mt-lg text-h6">Anda akan di alihkkan ke Antrian <span class="text-weight-bold"> LOKET PEMBAYARAN TERLEBIH DAHULU</span>   <br />
+      <div class="q-mt-lg anjungan-desc">Anda akan di alihkkan ke Antrian <span class="text-weight-bold"> LOKET PEMBAYARAN TERLEBIH DAHULU</span>   <br />
 
         Sebelum menuju POLI yang dituju <br /><br />
 
@@ -72,10 +72,10 @@
     <div class="absolute-bottom q-pa-md">
       <div class="row full-width">
         <div class="col-grow bg-negative cursor-pointer" @click="goTo('/')">
-          <div class="q-pa-lg text-center text-white f-20">KEMBALI</div>
+          <div class="q-pa-lg text-center text-white anjungan-desc">KEMBALI</div>
         </div>
         <div class="col-grow bg-dark cursor-pointer">
-          <div class="q-pa-lg text-center text-white f-20" @click="toPrint()">SETUJU</div>
+          <div class="q-pa-lg text-center text-white anjungan-desc" @click="toPrint()">SETUJU</div>
         </div>
       </div>
     </div>
@@ -85,9 +85,11 @@
 <script setup>
 import { useUmumStore } from 'src/stores/anjungan/umum'
 import { computed, onBeforeUnmount, onUpdated, ref } from 'vue'
+import { useAppStore } from 'src/stores/app'
 
 import user from 'src/assets/images/nouser.png'
 
+const app = useAppStore()
 const store = useUmumStore()
 const nouser = computed(() => new URL(user, import.meta.url).href)
 function toPrint () {

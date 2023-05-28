@@ -3,14 +3,14 @@
     <!-- <q-card flat rounded bordered class="bg-grey-2"> -->
     <div class="absolute-top text-center">
       <div class="q-ma-md">
-        <div class="q-pa-md text-h5 text-weight-bold">
+        <div class="q-pa-md anjungan-judul text-weight-bold">
           PENCARIAN DOKTER
         </div>
         <q-separator />
       </div>
     </div>
     <div class="q-pa-lg">
-      <q-card  bordered class="bg-accent text-white" style="margin-top:60px;">
+      <q-card  bordered class="bg-accent text-white" style="margin-top:40px;">
         <q-card-section horizontal>
           <q-img
             class="col-2"
@@ -19,7 +19,7 @@
 
           <q-card-section>
             <div class="q-ml-lg">
-              <div class="row">
+              <div class="row anjungan-lg">
                 <div class="q-mr-md">
                   <!-- tempat -->
                   <div>Nama</div>
@@ -43,8 +43,8 @@
         </q-card-section>
         <q-separator />
         <q-card-actions>
-          <div class="row q-pa-sm">
-            <div class="q-mr-md">
+          <div class="row q-pa-xs">
+            <div class="q-mr-md anjungan-lg">
               <div>Asal Dari Faskes Tingkat {{ store.pasien_bpjs? store.pasien_bpjs.asalFaskes: '-' }}  {{ store.pasien_bpjs? store.pasien_bpjs.rujukan.provPerujuk.nama: '-' }}</div>
             </div>
 
@@ -54,13 +54,13 @@
     </div>
 
     <!-- DOKTER -->
-    <div class="q-pa-md q-mt-lg">
+    <div class="q-pa-lg">
 
-      <div class="q-my-sm">
-        <div class="info text-h6 q-mb-md" style="margin-top:20px;">
+      <div class="">
+        <div class="info anjungan-desc q-mb-sm" >
         Silahkan Anda Pilih Dokter Terjadwal dibawah Berikut 👇:
       </div>
-        <q-scroll-area style="height:300px;">
+        <q-scroll-area :style="`height:${app.txt100*2}px;`">
         <q-list bordered separator v-if="store.dokters.length > 0">
           <q-item v-for="(item, i) in store.dokters" :key="i" tag="label" v-ripple>
             <q-item-section avatar>
@@ -71,12 +71,12 @@
             </q-item-section>
           </q-item>
         </q-list>
-        <div v-else class="column flex-center " style="height:300px;">
+        <div v-else class="column flex-center " :style="`height:${app.txt100*2}px;`">
           <div> Maaf Tidak Ada Jadwal Dokter Hari Ini </div>
           <div class="text-weight-bold"> 🙏 Kembali Lagi Besok Hari</div>
         </div>
         </q-scroll-area>
-        {{ store.dokters.length }}
+        <!-- {{ store.dokters.length }} -->
       </div>
       <div class="absolute-bottom q-pa-md">
       <div class="row full-width">
@@ -97,8 +97,10 @@
 import 'vue3-lottie/dist/style.css'
 import { computed, onBeforeUnmount, onMounted, onUpdated, ref } from 'vue'
 import { useBpjsStore } from 'src/stores/anjungan/bpjs'
+import { useAppStore } from 'src/stores/app'
 
 const store = useBpjsStore()
+const app = useAppStore()
 
 import user from 'src/assets/images/nouser.png'
 import { notifErrVue } from 'src/modules/utils'

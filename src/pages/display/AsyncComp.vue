@@ -95,11 +95,12 @@
 </template>
 
 <script setup>
+import { useSpeechStore } from 'src/stores/display/speech.js'
 import CardIndividu from './card/CardIndividu.vue'
 import CardBerjalan from './card/CardBerjalan.vue'
 import { useAppStore } from 'src/stores/app'
 import { useVideoStore } from 'src/stores/video'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps({
   item: {
@@ -112,7 +113,10 @@ const props = defineProps({
   }
 })
 
+const emits = defineEmits(['voiceEnd'])
+
 const store = useVideoStore()
+const speech = useSpeechStore()
 const app = useAppStore()
 let date = new Date()
 
@@ -144,6 +148,54 @@ onBeforeUnmount(() => {
 onMounted(() => {
   store.getData()
   console.log('app', app.height)
+})
+
+function setSpeech (txt) {
+  console.log(speech.voiceList[11])
+  const voice = speech.utterance
+  voice.text = txt
+  voice.voice = speech.voiceList[11]
+
+  voice.volume = 1
+  voice.pitch = 1
+  voice.rate = 0.7
+
+  voice.onend = function () {
+    // this code is not called
+    emits('voiceEnd')
+    console.log('end')
+  }
+  return voice
+}
+
+function panggilan () {
+  const panggil = props.item
+  const nomorantrean = panggil ? panggil.nomorantrean : false
+  const namapasien = panggil ? panggil.namapasien === null || panggil.namapasien === '' ? 'BELUM ADA NAMA' : panggil.namapasien
+    : 'BELUM ADA NAMA'
+  const set = panggil.set
+  if (nomorantrean) {
+    const unit = panggil.unit.display_id === 'A' ? 'LOKET... ' : 'UNIT... '
+    const sambung = '... Menuju... ' + unit + panggil.unit.kode_layanan + panggil.unit.loket_no
+    const txt1 = 'Nomor Antrian... ' + nomorantrean
+    const txt2 = 'Kepada Saudara... ' + namapasien
+    const txt3 = txt2 + ' ... ' + txt1
+
+    const txt = set === 1 ? txt1 + sambung : set === 2 ? txt2 + sambung : txt3 + sambung
+
+    speech.synth.speak(setSpeech(txt))
+  } else {
+    const txt = 'TIDAK ADA DATA'
+    speech.synth.speak(setSpeech(txt))
+  }
+}
+
+watch(() => props.item, (first, second) => {
+  console.log(
+    'Watch props.selected function called with args:',
+    first
+  )
+  panggilan()
 })
 </script>
 

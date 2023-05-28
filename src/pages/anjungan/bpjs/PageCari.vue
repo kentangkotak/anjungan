@@ -3,7 +3,7 @@
     <!-- <q-card flat rounded bordered class="bg-grey-2"> -->
       <div class="absolute-top text-center">
       <div class="q-ma-md">
-        <div class="q-pa-md text-weight-bold" :style="`font-size:${app.txt28}px`">
+        <div class="q-pa-md text-weight-bold anjunngan-judul">
           PESERTA BPJS / JKN
         </div>
         <q-separator />
@@ -12,7 +12,7 @@
     <div class="q-pa-md q-my-lg">
       <!-- <div class="text-h4">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator> -->
-      <div class="info text-body1" :style="`font-size:${app.txtH5}px; margin-top:${app.txt100}px`">
+      <div class="info anjunngan-desc" :style="`margin-top:${app.txt100}px`">
         Silahkan Anda cari berdasarkan <b>No RUJUKAN </b> yang didapat dari FASKES Tingkat I / Rumah Sakit Lain
       </div>
       <div class="q-my-lg">

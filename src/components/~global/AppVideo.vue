@@ -9,15 +9,17 @@
         @loadedmetadata="loadedMD($event)"
         @loadstart="loadedStart($event)"
         @ended="onEnded()"
+        @playing="onPlaying()"
+        @pause="onPaused()"
         controls
         >
         <source :type="getType()" :src="getVideo()">
       </video>
-      <!-- <div class="absolute-bottom">
+      <div class="absolute-bottom" style="display:none;">
         <div class="row q-pa-md">
-          <q-btn label="play" @click="played($event)" class="bg-blue"></q-btn>
+          <q-btn ref="btnRef" label="play" @click="played($event)" class="bg-blue"></q-btn>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -42,8 +44,11 @@ const props = defineProps({
 })
 
 const refVideo = ref()
+const btnRef = ref()
 const autoplay = ref(false)
 const muted = ref(false)
+
+const playing = ref(true)
 
 // const videos = ref(['NE.mp4', 'video.webm'])
 const idx = ref(0)
@@ -71,18 +76,23 @@ function getType () {
   }
 }
 
-function played () {
-  console.log()
-  return refVideo.value ? refVideo.value.play() : false
+function played (e) {
+  playing.value === false ? refVideo.value.play() : refVideo.value.pause()
+  // return refVideo.value ? refVideo.value.play() : null
+  // setTimeout(() => {
+  //   return refVideo.value.play()
+  // }, 500)
 }
 function loadedStart (e) {
+  // played()
+  // e ? e.target.play() : false
+  // e.target.play()
   e.target.volume = parseFloat(props.volume)
-  console.log('loaded', e.target.volume)
-  played()
+  // console.log('loaded', e.target.volume)
 }
 
 function onEnded () {
-  console.log('onEnded')
+  // console.log('onEnded')
   // const vid = videos.value.length
   const vid = props.videos.length
   if (idx.value === vid - 1) {
@@ -91,11 +101,31 @@ function onEnded () {
     idx.value = idx.value + 1
   }
 }
+function onPlaying () {
+  // console.log('onPlaying')
+  // refVideo.value.target.volume = parseFloat(props.volume)
+  playing.value = true
+}
+function onPaused () {
+  // console.log('onPaused')
+  playing.value = false
+}
 function loadedMD (ev) {
-  return ev
+  // console.log('load meta', ev.target)
+  ev.target.play()
+  // console.log('load meta', btnRef.value)
+  // return btnRef.value.click()
+  // return ev
+  // setTimeout(() => {
+  //   return ev.target.play()
+  // }, 500)
 }
 onMounted(() => {
-  //
+  console.log('mounted', btnRef.value)
+  // btnRef.value.click()
+  // setTimeout(() => {
+  //   return btnRef.value.click()
+  // }, 500)
 })
 </script>
 
