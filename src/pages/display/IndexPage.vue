@@ -2,7 +2,7 @@
   <q-page class="fullscreen bg-dark">
     <app-loading v-if="speech.isLoading" />
     <AsyncComp v-else :key="queryparam" :item="store.panggil" :items="store.items"
-      @voice-end="store.deleteTablePanggil()"
+      @voice-end="store.deleteTablePanggil(route.params.name)"
     />
   </q-page>
 </template>

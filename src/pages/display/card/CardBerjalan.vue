@@ -23,7 +23,7 @@
               </q-card-section>
               <q-separator />
               <q-card-actions align="center" class="bg-negative text-white">
-                <div> Sisa Antrian : - </div>
+                <div> Sisa Antrian : {{ cekSisaAntrian(row) }} </div>
               </q-card-actions>
             </q-card>
         </div>
@@ -77,9 +77,27 @@ function cekLayanan (row) {
   }
   const bookings = layanan.bookings
   if (bookings.length > 0) {
-    return bookings[0].nomorantrean
+    // const banyaknyaantrian = bookings.length
+    const telahdipanggil = bookings.filter(x => x.statuspanggil === 1)
+    if (telahdipanggil.length > 0) {
+      return telahdipanggil[0].nomorantrean
+    } else {
+      return false
+    }
   }
   return false
+}
+
+function cekSisaAntrian (row) {
+  const layanan = row.layanan
+  if (!layanan) {
+    return '-'
+  }
+  const bookings = layanan.bookings
+  const banyaknyaantrian = bookings.length
+  const telahdipanggil = bookings.filter(x => x.statuspanggil === 1).length
+  const sisaAntrian = parseInt(banyaknyaantrian) - parseInt(telahdipanggil)
+  return sisaAntrian
 }
 
 console.log('items', props.items)

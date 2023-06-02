@@ -158,7 +158,7 @@ function setSpeech (txt) {
 
   voice.volume = 1
   voice.pitch = 1
-  voice.rate = 0.7
+  voice.rate = 1
 
   voice.onend = function () {
     // this code is not called
@@ -178,7 +178,7 @@ function panggilan () {
     const unit = panggil.unit.display_id === 'A' ? 'LOKET... ' : 'UNIT... '
     const sambung = '... Menuju... ' + unit + panggil.unit.kode_layanan + panggil.unit.loket_no
     const txt1 = 'Nomor Antrian... ' + nomorantrean
-    const txt2 = 'Kepada Saudara... ' + namapasien
+    const txt2 = 'Saudara... ' + namapasien
     const txt3 = txt2 + ' ... ' + txt1
 
     const txt = set === 1 ? txt1 + sambung : set === 2 ? txt2 + sambung : txt3 + sambung
