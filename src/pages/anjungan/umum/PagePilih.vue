@@ -10,16 +10,16 @@
       </div>
     </div>
     <div class="q-pa-lg">
-      <div class="info text-subtitle q-mb-lg" style="margin-top:80px;">
+      <div class="info text-subtitle q-mb-lg" style="margin-top:70px;">
         Silahkan Anda pilih <b>LAMA </b> jika anda sudah mempunyai <b>NO.RM / Nomor Rekam Medis</b>
         di RSUD MOHAMAD SALEH atau pilih <b>BARU</b> Jika Belum Mempunyai <b>NO.RM</b>
       </div>
       <div class="q-pa-lg">
         <div class="column flex-center">
-          <q-btn size="xl" class="full-width q-mb-lg" color="accent" @click="cetakAntrean()">
+          <q-btn rounded size="xl" class="full-width q-mb-lg" color="accent" @click="cetakAntrean()">
             <div class="q-pa-lg">PASIEN BARU</div>
           </q-btn>
-          <q-btn size="xl" class="full-width " color="dark" @click="store.setTab('norm')">
+          <q-btn rounded size="xl" class="full-width " color="dark" @click="store.setTab('norm')">
             <div class="q-pa-lg">PASIEN LAMA</div>
           </q-btn>
         </div>
