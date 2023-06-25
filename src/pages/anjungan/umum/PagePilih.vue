@@ -9,11 +9,11 @@
         <q-separator />
       </div>
     </div>
-    <div class="q-pa-md q-my-lg">
+    <div class="q-pa-lg">
       <!-- <div class="text-h4">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator> -->
       <!-- {{ store.tab }} -->
-      <div class="info text-body1 q-mb-lg" style="margin-top:150px;">
+      <div class="info text-subtitle q-mb-lg" style="margin-top:80px;">
         Silahkan Anda pilih <b>LAMA </b> jika anda sudah mempunyai <b>NO.RM / Nomor Rekam Medis</b>
         di RSUD MOHAMAD SALEH atau pilih <b>BARU</b> Jika Belum Mempunyai <b>NO.RM</b>
       </div>
@@ -22,7 +22,7 @@
           <q-btn size="xl" class="full-width q-mb-lg" color="accent" @click="cetakAntrean()">
             <div class="q-pa-lg">PASIEN BARU</div>
           </q-btn>
-          <q-btn size="xl" class="full-width q-mt-lg" color="dark" @click="store.setTab('norm')">
+          <q-btn size="xl" class="full-width " color="dark" @click="store.setTab('norm')">
             <div class="q-pa-lg">PASIEN LAMA</div>
           </q-btn>
         </div>
