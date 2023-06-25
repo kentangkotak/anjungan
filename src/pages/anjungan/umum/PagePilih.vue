@@ -10,9 +10,6 @@
       </div>
     </div>
     <div class="q-pa-lg">
-      <!-- <div class="text-h4">Pasien BPJS</div>
-      <q-separator class="q-my-xs"></q-separator> -->
-      <!-- {{ store.tab }} -->
       <div class="info text-subtitle q-mb-lg" style="margin-top:80px;">
         Silahkan Anda pilih <b>LAMA </b> jika anda sudah mempunyai <b>NO.RM / Nomor Rekam Medis</b>
         di RSUD MOHAMAD SALEH atau pilih <b>BARU</b> Jika Belum Mempunyai <b>NO.RM</b>
