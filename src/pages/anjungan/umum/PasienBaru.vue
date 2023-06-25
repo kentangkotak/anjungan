@@ -2,7 +2,7 @@
   <div class="q-pa-xs full-height bg-white column flex-center" style="border-radius: 5px;">
     <div class="absolute-top text-center">
       <div class="q-ma-md">
-        <div class="q-pa-md anjungan-judul text-weight-bold">
+        <div class="q-pa-md text-h5 text-weight-bold">
           PREVIEW ANTRIAN
         </div>
         <q-separator />
@@ -40,10 +40,10 @@
     <div class="absolute-bottom q-pa-md">
         <div class="row full-width">
           <div class="col-grow bg-negative cursor-pointer" @click="goTo('/')">
-            <div class="q-pa-lg text-center text-white anjungan-desc">BATAL</div>
+            <div class="q-pa-lg text-center text-white f-20">BATAL</div>
           </div>
           <div class="col-grow bg-dark cursor-pointer" v-print="printObj">
-          <div class="q-pa-lg text-center text-white anjungan-desc">PRINT ANTRIAN</div>
+          <div class="q-pa-lg text-center text-white f-20">PRINT ANTRIAN</div>
         </div>
       </div>
     </div>
@@ -94,6 +94,7 @@ const printObj = {
   },
   closeCallback (vue) {
     // printed.value = false
+    // changePeriode()
     console.log('closePrint')
     goTo('/anjungan')
   }

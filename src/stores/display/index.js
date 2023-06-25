@@ -36,15 +36,6 @@ export const useDisplayStore = defineStore('display_antrian', {
 
     setPanggil (val) {
       this.panggil = val
-    },
-    async deleteTablePanggil () {
-      const params = this.panggil
-      try {
-        const resp = await api.post('v1/fordisplay/delete_panggilan', params)
-        console.log('del panggilan', resp)
-      } catch (error) {
-        console.log(error)
-      }
     }
   }
 })
