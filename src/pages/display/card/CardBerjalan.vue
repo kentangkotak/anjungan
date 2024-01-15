@@ -6,7 +6,7 @@
             <q-card class="carding q-mr-md" v-for="(row, i) in items" :key="row" :style="`width: ${app.txt100*3}px;`">
               <div :class="`bg-${colors[i]} text-white q-pa-sm`">
                 <div class="text-center text-weight-bold" :style="`font-size: ${app.txtH5}px;`">
-                  {{row.display_id === 'A'? 'LOKET': 'UNIT'}} {{ row.kode_layanan }}{{ row.loket_no }}
+                  {{row.display_id === 'A'? 'UNIT': 'UNIT'}} {{ row.kode_layanan }}
                 </div>
                 <div class="text-center" :style="`font-size: ${app.txtLg}px; margin-top:-5px;`">{{row.loket}} </div>
               </div>
@@ -14,16 +14,16 @@
               <q-separator />
               <q-card-section class="">
                 <div  class="text-center" :style="`font-size: ${app.txtLg}px; margin-top:-5px;`">Nomor Antrian</div>
-                <div v-if="!cekLayanan(row)" class="text-center" :style="`font-size: ${app.txt48}px; margin-top:-5px;`">
-                  ----
+                <div class="text-center" :style="`font-size: ${app.txt48}px; margin-top:-5px;`">
+                  {{ row?.kode_layanan }}0{{row?.kuotajkn}}
                 </div>
-                <div v-else class="text-center" :style="`font-size: ${app.txt48}px; margin-top:-5px;`">
+                <!-- <div v-else class="text-center" :style="`font-size: ${app.txt48}px; margin-top:-5px;`">
                   {{ cekLayanan(row) }}
-                </div>
+                </div> -->
               </q-card-section>
               <q-separator />
               <q-card-actions align="center" class="bg-negative text-white">
-                <div> Sisa Antrian : - </div>
+                <div> ----- </div>
               </q-card-actions>
             </q-card>
         </div>
@@ -55,7 +55,9 @@ const colors = ref([
   'orange',
   'brown',
   'blue-grey',
-  'blue'
+  'blue',
+  'red',
+  'grey'
 ])
 
 const noPreview = ref(
@@ -70,17 +72,17 @@ const props = defineProps({
   }
 })
 
-function cekLayanan (row) {
-  const layanan = row.layanan
-  if (!layanan) {
-    return false
-  }
-  const bookings = layanan.bookings
-  if (bookings.length > 0) {
-    return bookings[0].nomorantrean
-  }
-  return false
-}
+// function cekLayanan (row) {
+//   const layanan = row.layanan
+//   if (!layanan) {
+//     return false
+//   }
+//   const bookings = layanan.bookings
+//   if (bookings.length > 0) {
+//     return bookings[0].nomorantrean
+//   }
+//   return false
+// }
 
 console.log('items', props.items)
 </script>
