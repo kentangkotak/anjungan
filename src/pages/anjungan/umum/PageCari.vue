@@ -12,7 +12,7 @@
     <div class="q-pa-md q-my-lg">
       <!-- <div class="text-h4">Pasien BPJS</div>
       <q-separator class="q-my-xs"></q-separator> -->
-      <div class="info anjungan-desc" :style="`margin-top:${app.txt100}px;`">
+      <div class="info anjungan-desc" :style="`margin-top:80px;`">
         Silahkan Anda Masukkan <b>No RM ( Nomor Rekam Medis )</b> Anda 👇
       </div>
       <div class="q-my-lg">
