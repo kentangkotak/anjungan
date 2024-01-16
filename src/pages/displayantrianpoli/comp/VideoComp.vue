@@ -1,24 +1,19 @@
 <template>
-  <div class="player">
-    <div class="player_sizer">
-      <!-- <iframe src="~assets/video/NE.mp4" type="video/mp4" allow="autoplay" id="video" style="display:none"></iframe> -->
-      <video v-if="!loading" id="vidEl" ref="refVideo"
-        :key="idx"
-        :autoplay="autoplay"
-        :muted="muted"
-        @loadedmetadata="loadedMD($event)"
-        @loadstart="loadedStart($event)"
-        @ended="onEnded()"
-        controls
-        >
-        <source :type="getType()" :src="getVideo()">
-      </video>
-      <!-- <div class="absolute-bottom">
-        <div class="row q-pa-md">
-          <q-btn label="play" @click="played($event)" class="bg-blue"></q-btn>
-        </div>
-      </div> -->
-    </div>
+  <!-- <div class="full-height full-width bg-red relative-position"> -->
+  <div class="video-container column flex-center items-center full-width full-height">
+    <video
+      v-if="!loading" id="vidEl" ref="refVideo"
+      :key="idx"
+      :autoplay="autoplay"
+      :muted="muted"
+      @loadedmetadata="loadedMD($event)"
+      @loadstart="loadedStart($event)"
+      @ended="onEnded()"
+      controls
+      class="video"
+    >
+      <source :type="getType()" :src="getVideo()">
+    </video>
   </div>
 </template>
 
@@ -100,25 +95,16 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.player{
-  width: 100%;
-  // height: 0px;
-  position: relative;
-  // padding-top: 56.25%;
-  video{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top:0;
-  }
+.video-container {
+    /* width is set as 100% here. any width can be specified as per requirement */
+  //  display: flex;
+  //  width:100%;
+  //  height:100%;
+}
 
-  &_sizer {
+.video {
+    aspect-ratio: 16 / 9;
     width: 100%;
-    // height: 100%;
-    padding-top: 56.25%;
-    position: relative;
-    // outline: 3px solid red;
-  }
+    // background-color: $primary;
 }
 </style>
