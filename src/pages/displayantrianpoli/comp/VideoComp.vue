@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="full-height full-width bg-red relative-position"> -->
-  <div class="video-container column flex-center items-center full-width full-height">
+  <div class="video-container">
     <video
       v-if="!loading" id="vidEl" ref="refVideo"
       :key="idx"
@@ -95,16 +95,17 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.video-container {
-    /* width is set as 100% here. any width can be specified as per requirement */
-  //  display: flex;
-  //  width:100%;
-  //  height:100%;
-}
-
-.video {
+.video-container{
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  .video {
     aspect-ratio: 16 / 9;
     width: 100%;
+    position: absolute;
     // background-color: $primary;
 }
+}
+
 </style>

@@ -1,5 +1,6 @@
 <template>
   <q-page class="fullscreen bg-dark">
+       <BoxAnimation class="absolute" style="z-index: -1;" />
       <AnimationWave class="z--" />
       <div class="full-height full-width q-pa-md ">
         <DisplayPoliPage :key="queryparam" />
@@ -10,6 +11,7 @@
 <script setup>
 import { useRoute } from 'vue-router'
 import AnimationWave from './comp/AnimationWave.vue'
+import BoxAnimation from './comp/BoxAnimation.vue'
 import DisplayPoliPage from './DisplayPoliPage.vue'
 import { computed, onMounted } from 'vue'
 

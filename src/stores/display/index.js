@@ -25,12 +25,23 @@ export const useDisplayStore = defineStore('display_antrian', {
         const resp = await api.get('v1/fordisplay/display', params)
         console.log('fordisplay', resp)
         if (resp.status === 200) {
-          this.items = resp.data
+          this.items = resp?.data?.poli
+          this.setItem()
         }
         this.loading = false
       } catch (error) {
-        console.log('fordisplay', error)
+        // console.log('fordisplay', error)
         this.loading = false
+      }
+    },
+
+    setItem () {
+      if (this.panggil === null) {
+        if (this.items.length) {
+          this.item = this.items[0]
+        }
+      } else {
+        this.item = this.panggil
       }
     },
 
