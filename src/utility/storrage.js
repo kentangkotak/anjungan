@@ -13,3 +13,5 @@ export const deleteUser = () => localStorage.removeItem('user')
 export const setTempData = data => localStorage.setItem('tempData', JSON.stringify(data))
 export const getTempData = () => JSON.parse(localStorage.getItem('tempData'))
 export const deleteTempData = () => localStorage.removeItem('tempData')
+
+export const clearStore = () => localStorage.clear()

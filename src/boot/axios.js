@@ -5,11 +5,15 @@ import { getLocalToken } from 'src/utility/storrage'
 // const SERV = 'http://192.168.101.79/api.laborat/public'
 // const SERV = 'http://api.laborat.test'
 // const SERV = 'https://xenter.my.id'
+// const SERV = 'http://192.168.150.111:3507'
+const SERV = 'http://192.168.101.80/api.laborat/public'
 // const SERV = 'http://192.168.150.103:3501'
-// const SERV = 'http://192.168.101.80/api.laborat/public'
-// const SERV = 'http://192.168.150.103:3501'
-const SERV = 'http://localhost/api.laborat/public'
+// const SERV = 'http://localhost/api.laborat/public'
 // const SERV = 'https://rsudmochsaleh.my.id'
+
+// const WSHOST = '192.168.150.111'
+const WSHOST = '192.168.101.80'
+const WSPORT = 6003
 
 const SERVER = SERV + '/api'
 const api = axios.create({ baseURL: SERVER })
@@ -48,6 +52,9 @@ const pathImg = SERV + '/storage/'
 export default boot(({ app }) => {
   app.config.globalProperties.$axios = axios
   app.config.globalProperties.$api = api
+  app.config.globalProperties.$SERV = SERV
+  app.config.globalProperties.$WSHOST = WSHOST
+  app.config.globalProperties.$WSPORT = WSPORT
 })
 
 const setToken = (token) => {
@@ -55,4 +62,4 @@ const setToken = (token) => {
 }
 const deleteToken = () => delete api.defaults.headers.common.Authorization
 
-export { api, pathImg, setToken, deleteToken }
+export { api, pathImg, setToken, deleteToken, SERV, WSHOST, WSPORT }

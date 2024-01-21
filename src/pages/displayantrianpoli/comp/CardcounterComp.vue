@@ -2,25 +2,27 @@
   <div class="row full-width full-height relative-position flex-center items-center" style="overflow: hidden;">
     <div v-for="(item, i) in items" :key="i"  class="col-auto q-pr-md " style="width:30%; height: 50%; overflow: hidden;">
       <q-card dark class="full-width" style="height: calc(100% - 20px);" >
-        <div class="column full-height">
-          <div :class="`col-auto bg-${colors[i]} text-white q-pa-md`">
+        <div class="column full-height full-width flex-center">
+          <div class="col-auto full-width" :class="`bg-${colors[i]} text-white q-pa-md`">
             <div class="text-center text-weight-bold" :style="`font-size: ${app.txtH5}px;`">{{item?.panggil_antrian}}</div>
             <!-- <div class="text-center" :style="`font-size: ${app.txtLg}px; margin-top:-5px;`">{{item?.rs4}}</div> -->
           </div>
-          <div class="col full-height column flex-center bg-grey-3 text-dark">
-            <div class="text-center" :style="`font-size: ${app.txtLg}px;`" style="margin-bottom: -10px;">Nomor Antrian</div>
-            <div class="text-center text-weight-bold" :style="`font-size: ${app.txt50}px; margin-top:-5px`">{{ setNoAntrian(item) }}</div>
+          <div class="col full-height full-width bg-grey-3 text-dark">
+            <div class="column flex-center full-height">
+              <div class="" :style="`font-size: ${app.txtLg}px;`" >Nomor Antrian</div>
+              <div class="text-weight-bold" :style="`font-size: ${app.txt70}px; margin-top:-10px`">{{ setNoAntrian(item) }}</div>
+            </div>
 
           </div>
-          <div :class="`col-auto bg-${colors[i]} text-white text-center`">
-            <div class="row justify-between q-pa-md">
-              <div class="text-center">
-                <div class=" text-weight-bold" :style="`font-size: ${app.txtH5}px;`">1</div>
-                <div :style="`font-size: ${app.txtSm}px;`">Sisa Antrian</div>
+          <div class="col-auto full-width " :class="`bg-${colors[i]} text-white`">
+            <div class="row justify-between">
+              <div class="col column flex-center text-center bg-green q-px-md q-py-sm">
+                <div class=" text-weight-bold" :style="`font-size: ${app.txt28}px;`">1</div>
+                <div :style="`font-size: ${app.txtMd}px;`">Sisa Antrian</div>
               </div>
-              <div class="text-center">
-                <div class=" text-weight-bold" :style="`font-size: ${app.txtH5}px;`">{{ getJmlAntrian(item) }}</div>
-                <div :style="`font-size: ${app.txtSm}px;`">Jumlah Antrian</div>
+              <div class="col column flex-center text-center bg-brown q-px-md q-py-sm">
+                <div class=" text-weight-bold" :style="`font-size: ${app.txt28}px;`">{{ getJmlAntrian(item) }}</div>
+                <div :style="`font-size: ${app.txtMd}px;`">Jumlah Antrian</div>
               </div>
             </div>
           </div>
