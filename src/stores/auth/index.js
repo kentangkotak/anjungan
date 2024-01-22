@@ -36,6 +36,7 @@ export const useAuthStore = defineStore('auth-store-v2', {
       this.user = storage.getUser()
       this.token = storage.getLocalToken()
       this.loading = false
+      window.location.reload()
     },
 
     logout () {

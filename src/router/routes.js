@@ -30,6 +30,10 @@ const routes = [
       { path: '/display_antrian_poli/display/:name', name: 'display_poli', component: () => import('pages/displayantrianpoli/IndexPage.vue') }
     ]
   },
+  // {
+  //   path: '/logout',
+  //   component: () => import('layouts/DisplayLayout.vue')
+  // },
 
   // Always leave this as last one,
   // but you can also remove it

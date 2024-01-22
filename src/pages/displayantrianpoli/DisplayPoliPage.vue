@@ -64,24 +64,32 @@ onMounted(() => {
 })
 
 function subscribedChannel () {
-  if (route?.params?.name) {
-    const channel = laravelEcho.join('presence.chat.display' + route?.params?.name)
-    channel.here((users) => {
-      // usersOnline.value = [...users]
-      console.log(`subscribed display${route?.params?.name} channel`)
+  const kdDisplay = route?.params?.name
+  if (kdDisplay) {
+    // const channel = laravelEcho.join('presence.chat.display' + route?.params?.name)
+    // channel.here((users) => {
+    //   // usersOnline.value = [...users]
+    //   console.log(`subscribed display${route?.params?.name} channel`)
+    // })
+    //   .joining((user) => {
+    //     console.log({ user }, 'joined')
+    //   })
+    //   .leaving((user) => {
+    //     console.log({ user }, 'leaving')
+    //   })
+    //   .listen('.chat-message', (e) => {
+    //     console.log('listen', e)
+    //   // const thumb = [...chatMessages.value]
+    //   // if (e.message !== null || e.message !== '') { thumb.push(e.message) }
+    //   // chatMessages.value = thumb
+    //   })
+    const channel = laravelEcho.private('private.notif.display' + kdDisplay)
+    channel.subscribed(() => {
+      console.log(`subscribed private.notif.display${kdDisplay} channel !!!`)
+    }).listen('.notif-message', (e) => {
+      console.log(`listen notif${kdDisplay}`, e)
+      display.getData(route?.params?.name)
     })
-      .joining((user) => {
-        console.log({ user }, 'joined')
-      })
-      .leaving((user) => {
-        console.log({ user }, 'leaving')
-      })
-      .listen('.chat-message', (e) => {
-        console.log('listen', e)
-      // const thumb = [...chatMessages.value]
-      // if (e.message !== null || e.message !== '') { thumb.push(e.message) }
-      // chatMessages.value = thumb
-      })
   }
 }
 
