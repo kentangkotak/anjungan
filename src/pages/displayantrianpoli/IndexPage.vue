@@ -30,7 +30,7 @@ const isAuth = computed(() => auth.user)
 const queryparam = computed(() => route.params.name)
 
 onMounted(() => {
-  // auth.logout()
+  auth.logout()
   // console.log('route', queryparam)
 })
 </script>
