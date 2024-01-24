@@ -11,12 +11,8 @@
       </div>
     </div>
     <!-- TEMPAT JAM DIGITAL -->
-    <q-space></q-space>
+    <!-- <q-space></q-space>
     <div class="q-pt-sm">
-      <!-- <div class="tempat-jam text-white" :style="`
-        width:${app.txt100*6}px;
-        border-top-left-radius:${app.txt50}px;
-      `"> -->
         <div class="row justify-end byg-light" style="font-size: 40px; line-height:40px">
           <div class="text-weight-bold">{{ jam }} </div>
           <div class="text-weight-bold q-mx-sm"> : {{ menit }} </div>
@@ -25,23 +21,21 @@
         <div class="text-right q-mt-sm ">
           <div style="margin-top:-10px;" class="text-caption">{{ tanggal.toDateString() }}</div>
         </div>
-
-      <!-- </div> -->
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup>
 import { useAppStore } from 'src/stores/app'
-import { ref } from 'vue'
+// import { ref } from 'vue'
 
 const app = useAppStore()
-const date = new Date()
-const tanggal = ref(date)
+// const date = new Date()
+// const tanggal = ref(date)
 
-const jam = ref(date.getHours() > 9 ? date.getHours() : '0' + date.getHours())
-const menit = ref(date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes())
-const detik = ref(date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds())
+// const jam = ref(date.getHours() > 9 ? date.getHours() : '0' + date.getHours())
+// const menit = ref(date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes())
+// const detik = ref(date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds())
 
 </script>
 

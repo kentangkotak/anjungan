@@ -1,13 +1,13 @@
 <template>
   <div class="column full-height full-width">
-    <div class="col-auto q-pa-sm opa" >
+    <!-- <div class="col-auto q-pa-sm opa" >
       <HeaderComp />
-    </div>
+    </div> -->
     <div class="col break">
-      <div class="row full-height full-width">
+      <div class="row full-height ">
         <div class="col-auto full-height" style="width:70vw;">
-          <div class="full-height q-pr-md relative-position" >
-              <div
+          <div class="column full-height q-pr-md relative-position" >
+            <div
                 class="square"
                 style="--i:0;"
               />
@@ -27,11 +27,29 @@
                 class="square"
                 style="--i:4;"
               />
-            <CardcounterComp :items="display.items" />
+            <div class="col-auto q-pa-sm opa">
+               <HeaderComp />
+            </div>
+            <div class="col full-height ">
+              <CardcounterComp :items="display.items" />
+            </div>
+
           </div>
         </div>
-        <div class="col full-height full-width">
-          <VideoComp :videos="video.videos" :loading="video.loading" class="" />
+        <div class="col break q-mb-md relative-position">
+          <div class="full-height full-width absolute">
+            <div class="column full-height relative-position">
+              <div class="col full-height q-pb-md">
+                <WeatherComp />
+              </div>
+              <div class="col-auto bg-white relative-position" style="height: 40%;">
+                <VideoComp :videos="video.videos" :loading="video.loading" class="z-top" />
+              </div>
+            </div>
+            <!-- <div class="col-auto">
+              <VideoComp :videos="video.videos" :loading="video.loading" class="" />
+            </div> -->
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +60,7 @@
 </template>
 
 <script setup>
+import WeatherComp from './comp/WeatherComp.vue'
 import BottomPage from './comp/BottomPage.vue'
 import VideoComp from './comp/VideoComp.vue'
 import HeaderComp from './comp/HeaderComp.vue'
@@ -59,6 +78,7 @@ const display = useDisplayStore()
 onMounted(() => {
   video.getData()
   display.getData(route?.params?.name)
+  display.get_weather()
 
   subscribedChannel()
 })

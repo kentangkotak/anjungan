@@ -11,7 +11,8 @@ export const useDisplayStore = defineStore('display_antrian', {
     loading: false,
 
     // dari websocket
-    panggil: null
+    panggil: null,
+    cuaca: null
   }),
   getters: {
     // doubleCount: (state) => state.counter * 2
@@ -47,6 +48,13 @@ export const useDisplayStore = defineStore('display_antrian', {
 
     setPanggil (val) {
       this.panggil = val
+    },
+    async get_weather () {
+      const resp = await api.get('v1/fordisplay/get_weather')
+      if (resp.status === 200) {
+        this.cuaca = resp.data
+      }
+      console.log('cuaca', this.cuaca)
     }
   }
 })
