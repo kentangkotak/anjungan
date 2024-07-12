@@ -29,7 +29,7 @@ function login () {
   const params = {
     username: 'sa',
     email: 'sa@app.com',
-    password: 'sasa12345',
+    password: 'kentangkotak2121',
     device: 'display'
   }
 
