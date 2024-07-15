@@ -30,6 +30,15 @@ const routes = [
       { path: '/display_antrian_poli/display/:name', name: 'display_poli', component: () => import('pages/displayantrianpoli/IndexPage.vue') }
     ]
   },
+  {
+    path: '/display_antrian_tpprj',
+    component: () => import('layouts/DisplayLayout.vue'),
+    children: [
+      // { path: '', component: () => import('pages/direktur/IndexPage.vue') },
+      { path: '', redirect: '/display_antrian_tpprj/display' },
+      { path: '/display_antrian_tpprj/display', name: 'display_tpprj', component: () => import('pages/displayantriantpprj/IndexPage.vue') }
+    ]
+  },
   // {
   //   path: '/logout',
   //   component: () => import('layouts/DisplayLayout.vue')
