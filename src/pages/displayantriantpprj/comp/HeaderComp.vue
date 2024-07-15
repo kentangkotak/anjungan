@@ -2,11 +2,11 @@
   <div class="row head items-center">
     <div class="q-mx-md bg--1">
       <div class="row items-center">
-        <img src="~assets/images/logo-rsud.png" :style="`width:70px; height:70px; border-radius:50%; overflow:hidden;`" class="shadow-4">
+        <img src="~assets/images/logo-rsud.png" :style="`width:100px; height:100px; border-radius:50%; overflow:hidden;`" class="shadow-4">
         <div class="q-ml-md text-dark">
-          <div class="text-weight-bold text-yellow byg" :style="`font-size:${app.txt32}px;`">UOBK RSUD  MOHAMAD SALEH</div>
-          <div class=" bg-dark text-white rounded-borders q-px-sm" :style="`font-size:${app.txtMd}px; margin-top:-8px`">Jl. Mayjen Panjaitan No.65 Kota Probolinggo Sukabumi, Kec. Mayangan</div>
-          <div class="text-weight-bold byg-light" :style="`font-size: ${app.txt28}; `">KOTA PROBOLINGGO</div>
+          <div class="text-weight-bold text-yellow byg" :style="`font-size:${app.txt48}px;`">UOBK RSUD  MOHAMAD SALEH</div>
+          <div class=" bg-dark text-white rounded-borders q-px-sm" :style="`font-size:${app.txtLg}px; margin-top:-8px`">Jl. Mayjen Panjaitan No.65 Kota Probolinggo Sukabumi, Kec. Mayangan</div>
+          <div class="text-weight-bold byg-light" :style="`font-size: ${app.txt48}; `">KOTA PROBOLINGGO</div>
         </div>
       </div>
     </div>

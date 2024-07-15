@@ -7,22 +7,19 @@
     <div v-else class="fullscreen">
       <BoxAnimation class="absolute" style="z-index: -1;" />
       <AnimationWave class="z--" />
-      <div class="full-height full-width q-pa-md ">
+      <div class="full-height full-width q-pa-md" >
         <!-- <DisplayPoliPage :key="queryparam" /> -->
+         <DisplayTpprj />
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup>
-// import BlockPage from './comp/BlockPage.vue'
-// import AnimationWave from './comp/AnimationWave.vue'
-// import BoxAnimation from './comp/BoxAnimation.vue'
-// import DisplayPoliPage from './DisplayPoliPage.vue'
-
-const BlockPage = () => import('./comp/BlockPage.vue')
-const BoxAnimation = () => import('./comp/BoxAnimation.vue')
-const AnimationWave = () => import('./comp/AnimationWave.vue')
+import BlockPage from './comp/BlockPage.vue'
+import AnimationWave from './comp/AnimationWave.vue'
+import BoxAnimation from './comp/BoxAnimation.vue'
+import DisplayTpprj from './DisplayTpprj.vue'
 
 import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
@@ -37,8 +34,48 @@ const queryparam = computed(() => route.params.name)
 
 onMounted(() => {
   console.log('auth', isAuth.value)
-  auth.logout()
+  // auth.logout()
   // console.log('route', queryparam)
 })
 
 </script>
+
+<style lang="scss" scoped>
+$grad:#187DC1;
+
+.top-page {
+  position: relative;
+  text-align: center;
+  background: linear-gradient(60deg, $secondary 0%, $primary 100%);
+
+  .inner-top-page {
+      width: 100%;
+      height:100vh;
+      margin:0;
+      padding: 0;
+    }
+
+}
+
+.login-form {
+  width: 50%;
+  margin-top: 40px;
+  z-index: 2;
+}
+
+.bot {
+  position: absolute;
+  width: 100%;
+  height: 5vh;
+  bottom: 0;
+  background-color: transparent ;
+}
+.z-- {
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 30vh;
+  transform: scaleY(-1);
+}
+</style>
