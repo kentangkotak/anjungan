@@ -66,93 +66,30 @@ import BottomPage from './comp/BottomPage.vue'
 import VideoComp from './comp/VideoComp.vue'
 import HeaderComp from './comp/HeaderComp.vue'
 // import CardcounterComp from './comp/CardcounterComp.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 // import { useRoute } from 'vue-router'
 import { useVideoStore } from 'src/stores/video'
 // import { useDisplayStore } from 'src/stores/display'
 import { laravelEcho } from 'src/modules/websocket'
 import CardcounterComp from './comp/CardcounterComp.vue'
 import { useDisplayTpprjStore } from 'src/stores/display/tpprj'
-import { useSpeechStore } from 'src/stores/display/speech'
 
 // const route = useRoute()
 const video = useVideoStore()
 // const display = useDisplayStore()
 
 const store = useDisplayTpprjStore()
-const speech = useSpeechStore()
 
-const indexVoices = ref(0)
+const emits = defineEmits(['onPanggil'])
 
 onMounted(() => {
-  video.getData()
   // display.getData(route?.params?.name)
   // display.get_weather()
 
-  getListVoices().then((x) => {
-    settingsVoice()
-  })
-
   subscribedChannel()
+
+  video.getData()
 })
-
-function getListVoices () {
-  return new Promise(
-    function (resolve, reject) {
-      const synth = speech.synth
-      let id = 0
-
-      id = setInterval(() => {
-        if (synth.getVoices().length !== 0) {
-          speech.voiceList = synth.getVoices()
-          resolve(synth.getVoices())
-          clearInterval(id)
-        }
-      }, 10)
-    }
-  )
-}
-
-function settingsVoice () {
-  const voices = speech.voiceList
-  if (voices.length) {
-    const lang = voices?.map(x => x.lang)
-    const ind = lang.findIndex(x => x === 'id-ID') ?? 0
-    indexVoices.value = ind
-  }
-
-  // const synth = window.speechSynthesis
-  speech.synth.onvoiceschanged = () => {
-    speech.synth.setVoiceList(voices)
-  }
-  // console.log('voices', voices)
-  // console.log('speech', speech)
-  listenForSpeechEvents()
-}
-
-function listenForSpeechEvents () {
-  speech.utterance.onstart = () => {
-    console.log('start...')
-    speech.isLoading = true
-  }
-  speech.utterance.onend = () => {
-    console.log('end...')
-    speech.isLoading = false
-  }
-}
-
-function setSpeech (txt) {
-  // console.log(speech.voiceList[indexVoices.value])
-  const voice = speech.utterance
-  voice.text = txt
-  voice.voice = speech.voiceList[indexVoices.value]
-
-  voice.volume = 1
-  voice.pitch = 1
-  voice.rate = 1
-
-  return voice
-}
 
 // eslint-disable-next-line no-unused-vars
 function subscribedChannel () {
@@ -162,23 +99,20 @@ function subscribedChannel () {
   channel.subscribed(() => {
     console.log('subscribed private.notif.pendaftaran channel !!!')
   }).listen('.notif-message', (e) => {
-    console.log('listen notif', e)
+    // console.log('listen notif', e)
     const arr = store.items
     const index = arr.findIndex((item) => item.kode.toString() === e?.message?.loketId)
-    console.log('arr', arr)
-    console.log('index', index)
+    // console.log('arr', arr)
+    // console.log('index', index)
     store.items[index].nomor = e?.message?.nomorAntrian
     // store.items = arr
-    panggil(e.message)
+    // panggil(e.message)
+    emits('onPanggil', e?.message)
   })
   // }
 }
 
 // eslint-disable-next-line no-unused-vars
-function panggil (data) {
-  const txt = 'Nomor Antrian ... ' + data?.nomorAntrian + '? ...Harap menujuu ke loket ' + data?.loketId
-  speech.synth.speak(setSpeech(txt))
-}
 
 </script>
 
