@@ -6,6 +6,10 @@ export const useDisplayTpprjStore = defineStore('display_antrian_tpprj', {
     item: null,
     items: [
       {
+        kode: 1,
+        nomor: null
+      },
+      {
         kode: 2,
         nomor: null
       },

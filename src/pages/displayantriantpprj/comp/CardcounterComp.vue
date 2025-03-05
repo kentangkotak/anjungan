@@ -1,10 +1,10 @@
 <template>
   <div class="column full-width full-height relative-position items-center glasses q-pa-sm" style="overflow: hidden;">
-    <div class="col-2 full-width q-pb-sm">
+    <!-- <div class="col-2 full-width q-pb-sm">
       <q-card class="fit bg-dark" style="border-radius: 15px; overflow: hidden;" >
       dsgsd
     </q-card>
-    </div>
+    </div> -->
     <div v-for="(item, i) in items" :key="i" class="col-2 full-width q-pb-sm">
       <q-card class="fit bg-negative" style="border-radius: 15px; overflow: hidden;" >
         <div class="column full-height">
